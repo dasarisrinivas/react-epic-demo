@@ -34,7 +34,7 @@ const ProgressNotes = () => {
           />
         </Col>
       </Row>
-      <Row className="progressNotesRow">
+      <Row className="progressNotesRow mt-3">
         <Col xs={12} md={6} lg={3}>
           <CardListGroup
             itemsHeader={"Medication"}

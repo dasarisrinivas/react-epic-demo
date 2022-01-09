@@ -59,12 +59,11 @@ const ProfileInfo = () => {
                   <div className="card-body text-lg-left px-0">
                     <Row>
                       <Col>
-                        <p>
-                          Marital Status :<span className="data">{patientInfo.maritalStatus}</span>
-                        </p>
-                        <p>
+                        <section className="blocked-content">
+                          Marital Status :<span className="data">{patientInfo.maritalStatus}</span><br />
+   
                           Phone Number :<span className="data">{patientInfo.phoneNumber}</span>
-                        </p>
+                        </section>
                       </Col>
                     </Row>
                   </div>
@@ -75,7 +74,7 @@ const ProfileInfo = () => {
                   <div className="card-body text-lg-left px-0">
                     <Row>
                       <Col>
-                        <address className="address data">
+                        <address className="blocked-content data">
                           {patientInfo.addressLine1}<br/>
                           {addressLine2 && (<><span>{addressLine2}</span><br/></>)}
                           {patientInfo.city}, {patientInfo.state}-{patientInfo.postalCode}<br/>

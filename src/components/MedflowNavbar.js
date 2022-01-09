@@ -25,27 +25,13 @@ const MedflowNavbar = () => {
 
         <Navbar.Collapse>
           <Nav className="ms-auto" >
-            <Nav.Link href="#chart" className="navLink">
-              <FontAwesomeIcon icon={faChartBar} className="icon"/>
-              <span className="strong">Chart</span>
-            </Nav.Link>
-            <Nav.Link href="#features" className="navLink">
-              <FontAwesomeIcon icon={faCalculator} className="icon"/>
-              <span className="strong">Encounter</span>
-            </Nav.Link>
-            <Nav.Link href="#cart" className="navLink">
-              <FontAwesomeIcon
-                icon={faShoppingCart}
-                className="icon"
-              />
-              <span className="strong">In Basket</span>
-            </Nav.Link>
+           
             <Nav.Link href="/Medflows" className="navLink activeLink">
               <FontAwesomeIcon
                 icon={faNotesMedical}
                 className="icon"
               />
-              <span className="strong">Medflows</span>
+              <span className="strong">Dashboard</span>
             </Nav.Link>
             <Nav.Link href="#differentials" className="navLink">
               <FontAwesomeIcon icon={faMinus}className="icon" />

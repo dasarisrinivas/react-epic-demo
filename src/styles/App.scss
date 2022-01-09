@@ -190,8 +190,7 @@ li.data.list-group-item{
   border-style: none;
 }
 
-.progressNotesCard,
-.illnessDescriptionContainer {
+.progressNotesCard {
   margin: 30px auto;
   height: $progressCardHeight;
 }
@@ -251,11 +250,15 @@ textarea.inputTextArea.form-control {
   color: white;
 }
 
-.address {
+.blocked-content {
   display: block;
+
 }
 
-.loader {
-  align-items: center;
+.loadingSpinner{
   color: $primaryColor !important;
+  display: block;
+  position: absolute;
+  top: 50%;
+  margin-top: -4.05em;
 }
