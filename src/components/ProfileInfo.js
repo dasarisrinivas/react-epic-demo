@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 const ProfileInfo = () => {
   const fhirData = useSelector((state) => state.fhirData);
   const patientInfo = fhirData.patientInfo;
+  const addressLine2 = patientInfo.addressLine2;
   const [expandState, setExpandedState] = useState(false);
   const toggleState = () => {
     setExpandedState(!expandState);
@@ -76,7 +77,7 @@ const ProfileInfo = () => {
                       <Col>
                         <address className="address data">
                           {patientInfo.addressLine1}<br/>
-                          {patientInfo.addressLine2 && patientInfo.addressLine2 (<br/>)}
+                          {addressLine2 && (<><span>{addressLine2}</span><br/></>)}
                           {patientInfo.city}, {patientInfo.state}-{patientInfo.postalCode}<br/>
                           {patientInfo.country}
                         </address>
