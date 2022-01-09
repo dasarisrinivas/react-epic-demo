@@ -87,10 +87,10 @@ const ProfileInfo = () => {
                 </div>
               </Col>
               <Col xs={12} lg={4}>
-                <div className="card bg-light borderRight">
+                <div className="card bg-light">
                   <div className="card-body text-lg-left px-0">
                     <Row>
-                      <h4>Insurance Information</h4>
+                      <h5>Insurance/other Information will be displayed here</h5>
                     </Row>
                   </div>
                 </div>

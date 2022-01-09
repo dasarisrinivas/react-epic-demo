@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import MedflowNavbar from "./MedflowNavbar";
 import Medflows from "./Medflows";
 import MedflowTabs from "./MedflowTabs";
+import MedflowFooter from "./MedflowFooter";
 import Loader from "./Loader";
 const MedflowHome = () => {
   const fhirData = useSelector((state) => state.fhirData);
@@ -14,8 +15,10 @@ const MedflowHome = () => {
         <div>
           <Medflows />
           <MedflowTabs />
+          <MedflowFooter/>
         </div>
       )}
+      
     </div>
   );
 };

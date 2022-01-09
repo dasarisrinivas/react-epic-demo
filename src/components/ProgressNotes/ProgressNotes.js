@@ -67,7 +67,7 @@ const ProgressNotes = () => {
       </Row>
       <Row>
         <Col xs={12}>
-          <Button className=" customButton zoom mt-4" size="sm">
+          <Button className=" customButton zoom mt-4" size="md">
             Run Differentials
           </Button>
         </Col>
