@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import "./App.css";
+import "../styles/App.scss";
 import { Switch, Route, withRouter } from "react-router-dom";
 import { Menu, Button, Container, Message, Divider, Icon } from "semantic-ui-react";
-import { loadSampleData } from "modules/fhir-data.js";
+import { loadSampleData } from "../modules/fhir-data.js";
 import { connect } from "react-redux";
 
 import Redirect from "./Redirect.js";
@@ -24,10 +24,7 @@ class App extends Component {
 
     return (
       <React.Fragment>
-        <Menu inverted color="red" attached>
-          <Menu.Item header>HealthDecision &ndash; Browser-Based FHIR Integration</Menu.Item>
-        </Menu>
-        <Container style={{ paddingTop: "10px" }}>
+        <Container  className="fluid" style={{ paddingTop: "10px" }}>
           <Switch>
             <Route
               path="/"

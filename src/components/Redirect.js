@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { getAccessToken } from "modules/fhir-auth.js";
-import { toggleExampleVisibility } from "modules/fhir-data.js";
+import { getAccessToken } from "../modules/fhir-auth.js";
+import { toggleExampleVisibility } from "../modules/fhir-data.js";
 import { Icon, Message, Divider, Button, Container } from "semantic-ui-react";
-import Grid from "./Grid.js";
+import MedflowHome from "./MedflowHome.js";
 
 const mapStateToProps = (state, ownProps) => ({
   fhirAuth: state.fhirAuth,
@@ -42,7 +42,7 @@ class Redirect extends Component {
       );
     }
 
-    return <Grid />;
+    return <MedflowHome />;
   }
 }
 

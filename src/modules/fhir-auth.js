@@ -198,16 +198,16 @@ export const getAccessToken = uri => (dispatch, getState) => {
     dispatch(setIssuer(oauth.iss));
     dispatch(accessTokenReceived(response));
     dispatch(getFHIRData("patient"));
-    setTimeout(() => {
-      dispatch(getFHIRData("conditions"));
-    }, 100);
-    setTimeout(() => {
-      dispatch(getFHIRData("familyMemberHistories"));
-    }, 200);
+    //setTimeout(() => {
+    //  dispatch(getFHIRData("conditions"));
+   // }, 100);
+   // setTimeout(() => {
+   //   dispatch(getFHIRData("familyMemberHistories"));
+   // }, 200);
     // dispatch(getFHIRData("patient"));
     // dispatch(getFHIRData("conditions"));
     // dispatch(getFHIRData("familyMemberHistories"));
-    // dispatch(getFHIRData("observations"));
+ // dispatch(getFHIRData("observations"));
   });
 
   // TODO: handle errors?

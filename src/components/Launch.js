@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { initializeSmart } from "modules/fhir-auth.js";
+import { initializeSmart } from "../modules/fhir-auth.js";
 import qs from "qs";
-import hdOAuth from "lib/oauth.js";
+import hdOAuth from "../lib/oauth.js";
 import { Loader } from "semantic-ui-react";
 
 const mapStateToProps = (state, ownProps) => ({

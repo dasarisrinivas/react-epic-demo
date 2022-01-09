@@ -1,0 +1,261 @@
+$primaryColor: #217c9d;
+$backgroundColor: rgb(100, 178, 192) !important;
+$cardsackgroundColor: #20414d !important;
+$navLinksGap: 1em;
+$textFontWeight: 350;
+$fontFamily: "Roboto", sans-serif;
+$linkFontWeight: 500;
+$buttonFontWeight: 600;
+$activeLinkFontWeight: 600;
+$progressCardHeight: 14rem;
+
+.App {
+  position: relative;
+  min-height: 100vh;
+  font-size: 1rem;
+  font-family: $fontFamily;
+}
+
+#mainContent {
+  top: 0;
+  margin: auto;
+  width: 100%;
+  padding: 10px;
+}
+
+.navbar-nav > li {
+  padding-left: 30px;
+}
+
+.navLink {
+  position: relative;
+  margin-left: $navLinksGap;
+  font-family: $fontFamily;
+}
+
+.navLink::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 2px;
+  background-color: $primaryColor;
+  transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .navLink:hover::before {
+    left: 0;
+    right: auto;
+    width: 100%;
+  }
+}
+
+.navbar .dropdown-menu {
+  background-color: white;
+}
+
+.activeLink {
+  background-color: $backgroundColor;
+  color: white;
+}
+
+.dropdown-toggle.nav-link::after {
+  display: none;
+}
+
+.profile .card {
+  border: none;
+}
+
+.logo {
+  font-weight: $linkFontWeight;
+  font-family: $fontFamily;
+  color: $primaryColor;
+  display: -webkit-box;
+}
+
+div.card.bg-light.col-md-4.borderRight {
+  border-right: 1px;
+  border-style: solid;
+  border-top: none;
+  border-left: none;
+  border-bottom: none;
+  border-color: $primaryColor;
+  border-radius: unset;
+}
+
+.data {
+  font-weight: $textFontWeight;
+  margin-left: 5px;
+  color: $primaryColor;
+  font-family: "Roboto", sans-serif;
+}
+
+.chevronIcon {
+  color: $primaryColor;
+}
+
+.icon {
+  transition: all 0.6s;
+  color: $primaryColor;
+  margin-right: 3px;
+}
+
+.headerIcon {
+  margin-right: 5px;
+  transition: all 0.6s;
+}
+
+.nav-link:hover .icon {
+  transform: rotate(360deg);
+}
+
+button.nav-link {
+  color: $primaryColor;
+  font-family: $fontFamily;
+  font-weight: $linkFontWeight;
+  margin-left: $navLinksGap;
+}
+
+button.nav-link:hover {
+  color: #495057;
+  font-weight: $activeLinkFontWeight;
+  font-family: "Roboto", sans-serif;
+}
+
+.nav-item.nav-link.active {
+  background-color: $primaryColor;
+  color: black;
+  font-weight: $activeLinkFontWeight;
+  font-family: $fontFamily;
+}
+
+.strong {
+  color: black;
+  font-weight: 400;
+  font-family: $fontFamily;
+}
+
+button.customButton {
+  background-color: $primaryColor;
+  border-color: $primaryColor;
+  font-weight: $buttonFontWeight;
+  float: right;
+  color: white;
+  font-family: $fontFamily;
+}
+
+button.customButton:hover {
+  background-color: $primaryColor;
+  border-color: $primaryColor;
+  font-weight: $buttonFontWeight;
+  float: right;
+  color: white;
+  cursor: pointer;
+  font-family: $fontFamily;
+}
+
+button.customButtonSave {
+  background-color: $primaryColor;
+  border-color: $primaryColor;
+  font-weight: $buttonFontWeight;
+  float: left;
+  font-family: $fontFamily;
+}
+
+button.customButtonSave:hover {
+  background-color: $primaryColor;
+  border-color: $primaryColor;
+  font-family: $fontFamily;
+  font-weight: $buttonFontWeight;
+  float: left;
+  cursor: pointer;
+}
+
+.list-group-item {
+  padding: 0.2 rem 1 rem;
+  font-family: $fontFamily;
+  font-size: smaller;
+  font-weight: $textFontWeight;
+  margin-top : 2pt;
+}
+
+li.data.list-group-item{
+  border-left: 4px solid $primaryColor;
+}
+
+.form-control:active {
+  border-style: none;
+}
+
+.progressNotesCard,
+.illnessDescriptionContainer {
+  margin: 30px auto;
+  height: $progressCardHeight;
+}
+
+.scrollable {
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  max-height: $progressCardHeight;
+}
+
+div.progressNotesRow.row {
+  margin-top: -1.2rem;
+  margin-bottom: -3rem;
+}
+
+.descriptionLink {
+  font-family: $fontFamily;
+  font-size: $linkFontWeight;
+  color: $primaryColor;
+  margin-right: 2rem;
+}
+
+div.cardDescriptionBody.card-body {
+  font-family: $fontFamily;
+  padding: 0.3rem 0.3rem;
+}
+
+.illnessDescriptionContent {
+  font-family: $fontFamily;
+  font-weight: $textFontWeight;
+  margin-bottom: 0.8rem;
+}
+
+.zoom:hover {
+  transform: scale(
+    1.02
+  ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+
+.medflowFooter {
+  bottom: 0;
+  position: relative;
+}
+
+.inputTextArea {
+  resize: none;
+}
+
+textarea.inputTextArea.form-control {
+  font-size: $textFontWeight;
+  font-size: smaller;
+  font-family: $fontFamily;
+}
+
+.progressNotesCardHeader {
+  background-color: $primaryColor !important;
+  color: white;
+}
+
+.address {
+  display: block;
+}
+
+.loader {
+  align-items: center;
+  color: $primaryColor !important;
+}

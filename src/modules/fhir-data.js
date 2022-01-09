@@ -10,23 +10,12 @@ const TOGGLE_EXAMPLE_VISIBILITY = "TOGGLE_EXAMPLE_VISIBILITY";
 
 const ADD_EXAMPLE_DATA = "ADD_EXAMPLE_DATA";
 
+const ADD_PATIENT_INFO = "ADD_PATIENT_INFO";
+
 /***** Reducers *****/
 const defaultFhirDataState = {
   byResource: {
     patient: { title: "Patient", status: "", error: null, icon: "male" },
-    conditions: {
-      title: "Conditions",
-      status: "",
-      error: null,
-      icon: "numbered list"
-    },
-    // observations: Immutable.Map({title: "Observations", status: "", error: null, icon: "lab"}),
-    familyMemberHistories: {
-      title: "Family Member History",
-      status: "",
-      error: null,
-      icon: "numbered list"
-    }
   },
 
   sampleDataLoaded: false,
@@ -38,7 +27,7 @@ const defaultFhirDataState = {
   examples: {
     // mrn: {phi: "s123", deidentified: "123123", title: "MRN", hidden: true},
     // dob: {phi: "asdasdsa", deidentified: "123123", title: "Date of Birth", hidden: true}
-  }
+  },
 };
 
 export function fhirDataReducer(state = defaultFhirDataState, action) {
@@ -52,18 +41,18 @@ export function fhirDataReducer(state = defaultFhirDataState, action) {
           patient: {
             ...state.byResource.patient,
             status: "loaded",
-            error: null
+            error: null,
           },
           conditions: {
             ...state.byResource.conditions,
             status: "loaded",
-            error: null
+            error: null,
           },
           familyMemberHistories: {
             ...state.byResource.familyMemberHistories,
             status: "loaded",
-            error: null
-          }
+            error: null,
+          },
         },
         examples: {
           gender: {
@@ -71,55 +60,44 @@ export function fhirDataReducer(state = defaultFhirDataState, action) {
             title: "Gender",
             phi: "male",
             deidentified: "male",
-            hidden: true
+            hidden: true,
           },
           dob: {
             need: "Age",
             title: "Date of Birth",
-            phi: moment()
-              .subtract(48, "years")
-              .format("YYYY-MM-DD"),
+            phi: moment().subtract(48, "years").format("YYYY-MM-DD"),
             deidentified: "48 year old",
-            hidden: true
+            hidden: true,
           },
           mrn: {
             need: "Unique key",
             title: "Medical Record Number",
             phi: "E83833",
             deidentified: 'May be possible with "Expert Determination" method',
-            hidden: true
+            hidden: true,
           },
           hdl: {
             need: "HDL within the last six months",
             title: "HDL Observation",
-            phi:
-              "38 mg/dL measured on " +
-              moment()
-                .subtract(2, "months")
-                .format("YYYY-MM-DD"),
+            phi: "38 mg/dL measured on " + moment().subtract(2, "months").format("YYYY-MM-DD"),
             deidentified: "38 mg/dL",
-            hidden: true
+            hidden: true,
           },
           radiation: {
             need: "Past chest radiation?",
             title: "Radiation",
-            phi:
-              "Chest radiation on " +
-              moment()
-                .subtract(9, "years")
-                .format("YYYY-MM-DD"),
+            phi: "Chest radiation on " + moment().subtract(9, "years").format("YYYY-MM-DD"),
             deidentified: "No",
-            hidden: true
+            hidden: true,
           },
           diabetes: {
             need: "Is diabetic?",
             title: "Diabetes Condition",
-            phi:
-              "Type 1 diabetes mellitus (CMS/HCC) with onset date 2010-08-17",
+            phi: "Type 1 diabetes mellitus (CMS/HCC) with onset date 2010-08-17",
             deidentified: "Has diabetes, ignore the onset date",
-            hidden: true
-          }
-        }
+            hidden: true,
+          },
+        },
       };
 
     case FHIR_GET_DATA:
@@ -131,9 +109,9 @@ export function fhirDataReducer(state = defaultFhirDataState, action) {
           [action.resourceType]: {
             ...state.byResource[action.resourceType],
             error: null,
-            status: "loading"
-          }
-        }
+            status: "loading",
+          },
+        },
       };
 
     case FHIR_GET_DATA_FAILED:
@@ -144,19 +122,15 @@ export function fhirDataReducer(state = defaultFhirDataState, action) {
           [action.resourceType]: {
             ...state.byResource[action.resourceType],
             error: action.error,
-            status: "failed"
-          }
-        }
+            status: "failed",
+          },
+        },
       };
 
     case FHIR_GET_DATA_SUCCEEDED:
-      let allResourcesLoaded = !Object.keys(state.byResource).some(
-        resourceType => {
-          return resourceType === action.resourceType
-            ? false
-            : state.byResource[resourceType].status !== "loaded";
-        }
-      );
+      let allResourcesLoaded = !Object.keys(state.byResource).some((resourceType) => {
+        return resourceType === action.resourceType ? false : state.byResource[resourceType].status !== "loaded";
+      });
       return {
         ...state,
         allResourcesLoaded: allResourcesLoaded,
@@ -165,9 +139,9 @@ export function fhirDataReducer(state = defaultFhirDataState, action) {
           [action.resourceType]: {
             ...state.byResource[action.resourceType],
             error: null,
-            status: "loaded"
-          }
-        }
+            status: "loaded",
+          },
+        },
       };
 
     case ADD_EXAMPLE_DATA:
@@ -176,11 +150,40 @@ export function fhirDataReducer(state = defaultFhirDataState, action) {
         title: action.title,
         phi: action.phi,
         deidentified: action.deidentified,
-        hidden: true
+        hidden: true,
       };
       return {
         ...state,
-        examples: { ...state.examples, [action.key]: info }
+        examples: { ...state.examples, [action.key]: info },
+      };
+
+    case ADD_PATIENT_INFO:
+      let patientInfo = {
+        id: action.patientId,
+        fullName: action.fullName,
+        age: action.age,
+        dob: action.dob,
+        gender: action.gender,
+        phoneNumber: action.phoneNumber,
+        maritalStatus: action.maritalStatus,
+        addressLine1: action.addressLine1,
+        addressLine2: action.addressLine2,
+        city: action.city,
+        state: action.state,
+        postalCode: action.postalCode,
+        country: action.country,
+        complaints: action.complaints,
+        pastHealthIssues: action.pastHealthIssues,
+        medication: action.medication,
+        physicalExam: action.physicalExam,
+        pastPhysicalTestsOrdered: action.pastPhysicalTestsOrdered,
+        illnessDescription: action.illnessDescription,
+        abnormalPhysicalTests: action.abnormalPhysicalTests,
+        assessmentPlan: action.assessmentPlan
+      };
+      return {
+        ...state,
+        patientInfo,
       };
 
     case TOGGLE_EXAMPLE_VISIBILITY:
@@ -190,9 +193,9 @@ export function fhirDataReducer(state = defaultFhirDataState, action) {
           ...state.examples,
           [action.exampleKey]: {
             ...state.examples[action.exampleKey],
-            hidden: !state.examples[action.exampleKey].hidden
-          }
-        }
+            hidden: !state.examples[action.exampleKey].hidden,
+          },
+        },
       };
 
     default:
@@ -201,23 +204,23 @@ export function fhirDataReducer(state = defaultFhirDataState, action) {
 }
 
 /***** Action Creators *****/
-const getFHIRDataFailed = resourceType => ({
+const getFHIRDataFailed = (resourceType) => ({
   type: FHIR_GET_DATA_FAILED,
-  resourceType
+  resourceType,
 });
 const getFHIRDataSucceeded = (resourceType, response) => ({
   type: FHIR_GET_DATA_SUCCEEDED,
   resourceType,
-  response
+  response,
 });
 
-export const loadSampleData = () => dispatch => {
+export const loadSampleData = () => (dispatch) => {
   dispatch({ type: FHIR_LOAD_SAMPLE_DATA });
 };
 
-export const toggleExampleVisibility = exampleKey => ({
+export const toggleExampleVisibility = (exampleKey) => ({
   type: TOGGLE_EXAMPLE_VISIBILITY,
-  exampleKey
+  exampleKey,
 });
 
 export const addExampleData = (key, need, title, phi, deidentified) => ({
@@ -226,10 +229,57 @@ export const addExampleData = (key, need, title, phi, deidentified) => ({
   need,
   phi,
   deidentified,
-  title
+  title,
 });
 
-export const getFHIRData = resourceType => (dispatch, getState) => {
+export const addPatientInfo = (
+  id,
+  fullName,
+  age,
+  dob,
+  gender,
+  phoneNumber,
+  maritalStatus,
+  addressLine1,
+  addressLine2,
+  city,
+  state,
+  postalCode,
+  country,
+  complaints,
+  pastHealthIssues,
+  medication,
+  physicalExam,
+  pastPhysicalTestsOrdered,
+  illnessDescription,
+  abnormalPhysicalTests,
+  assessmentPlan
+) => ({
+  type: ADD_PATIENT_INFO,
+  id,
+  fullName,
+  age,
+  dob,
+  gender,
+  phoneNumber,
+  maritalStatus,
+  addressLine1,
+  addressLine2,
+  city,
+  state,
+  postalCode,
+  country,
+  complaints,
+  pastHealthIssues,
+  medication,
+  physicalExam,
+  pastPhysicalTestsOrdered,
+  illnessDescription,
+  abnormalPhysicalTests,
+  assessmentPlan,
+});
+
+export const getFHIRData = (resourceType) => (dispatch, getState) => {
   dispatch({ type: FHIR_GET_DATA, resourceType });
 
   let state = getState();
@@ -239,8 +289,7 @@ export const getFHIRData = resourceType => (dispatch, getState) => {
   if (resourceType === "patient") {
     client
       .read({ type: "Patient", id: patientId })
-      .then(response => {
-        // Calculate age
+      .then((response) => {
         let today = new Date();
         let dob = response.data.birthDate;
         let birthDate = new Date(dob);
@@ -249,123 +298,63 @@ export const getFHIRData = resourceType => (dispatch, getState) => {
         if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
           age--;
         }
-
-        if (age >= 90) {
-          age = "Greater than 90";
-        } else {
-          age = age + " year old";
+        let fullName = response.data.name.find((element) => element.use === "official").text;
+        let gender = response.data.gender;
+        if (gender === "male" || gender === "Male") {
+          gender = "M";
+        } else if (gender === "female" || gender === "Female") {
+          gender = "F";
         }
+        let phoneNumber = response.data.telecom.find((element) => element.system === "phone").value;
+        let maritalStatus = response.data.maritalStatus.text;
+        const address = response.data.address.find((element) => element.use === "home");
+        let addressLine1 = address.line[0];
+        let addressLine2 = address.line.length > 1 ? address.line[1] : "";
+        let city = address.city;
+        let state = address.state;
+        let postalCode = address.postalCode;
+        let country = address.country;
+
+        let complaints = [];
+        let pastHealthIssues = [];
+        let medication = [];
+        let physicalExam = [];
+        let pastPhysicalTestsOrdered = [];
+        let illnessDescription = "";
+        let abnormalPhysicalTests = [];
+        let assessmentPlan = [];
 
         dispatch(
-          addExampleData(
-            "gender",
-            "Gender",
-            "Gender",
-            response.data.gender,
-            response.data.gender
-          )
-        );
-        dispatch(
-          addExampleData(
-            "dob",
-            "Age",
-            "Date of Birth",
-            response.data.birthDate,
-            age
-          )
-        );
-        dispatch(
-          addExampleData(
-            "mrn",
-            "Unique key",
-            "MRN",
-            response.data.identifier.find(
-              element =>
-                element.system ===
-                "urn:oid:1.2.840.114350.1.13.0.1.7.5.737384.0"
-            ).value,
-            'May be possible with "Expert Determination" method'
-          )
-        );
-        dispatch(
-          addExampleData(
-            "hdl",
-            "HDL within the last six months",
-            "HDL Observation",
-            "38 mg/dL measured on " +
-              moment()
-                .subtract(2, "months")
-                .format("YYYY-MM-DD"),
-            "38 mg/dL"
-          )
-        );
-        dispatch(
-          addExampleData(
-            "radiation",
-            "Past chest radiation?",
-            "Radiation",
-            "Chest radiation on " +
-              moment()
-                .subtract(9, "years")
-                .format("YYYY-MM-DD"),
-            "No"
+          addPatientInfo(
+            patientId,
+            fullName,
+            age,
+            dob,
+            gender,
+            phoneNumber,
+            maritalStatus,
+            addressLine1,
+            addressLine2,
+            city,
+            state,
+            postalCode,
+            country,
+            complaints,
+            pastHealthIssues,
+            medication,
+            physicalExam,
+            pastPhysicalTestsOrdered,
+            illnessDescription,
+            abnormalPhysicalTests,
+            assessmentPlan
           )
         );
         dispatch(getFHIRDataSucceeded(resourceType, response));
       })
-      .catch(err => {
+      .catch((err) => {
         console.log("Error!");
         console.log(err);
         dispatch(getFHIRDataFailed(resourceType));
-      });
-  } else if (
-    resourceType === "conditions" ||
-    resourceType === "observations" ||
-    resourceType === "familyMemberHistories"
-  ) {
-    let typeMap = {
-      conditions: "Condition",
-      observations: "Observation",
-      familyMemberHistories: "FamilyMemberHistory"
-    };
-    client
-      .search({ type: typeMap[resourceType], patient: patientId })
-      .then(response => {
-        // For conditions, check diabetes
-        if (resourceType === "conditions") {
-          let diabetes = response.data.entry.find(
-            element =>
-              typeof element.resource.code.coding.find(
-                code =>
-                  code.system === "http://snomed.info/sct" &&
-                  code.code === "46635009"
-              ) !== "undefined"
-          );
-          // console.log(diabetes);
-          if (diabetes !== null) {
-            dispatch(
-              addExampleData(
-                "diabetes",
-                "Is diabetic?",
-                "Diabetes Condition",
-                diabetes.resource.code.text +
-                  " with onset date " +
-                  diabetes.resource.onsetDateTime,
-                "Has diabetes, ignore the onset date"
-              )
-            );
-            dispatch(getFHIRDataSucceeded(resourceType, response));
-          } else {
-            dispatch(getFHIRDataSucceeded(resourceType, response));
-          }
-        } else {
-          dispatch(getFHIRDataSucceeded(resourceType, response));
-        }
-      })
-      .catch(err => {
-        console.log("Error!");
-        console.log(err);
-        return dispatch(getFHIRDataFailed(resourceType));
       });
   } else {
     alert("Unexpected resource type requested '" + resourceType + "'.");

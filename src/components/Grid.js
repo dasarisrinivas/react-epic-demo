@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getAccessToken } from "modules/fhir-auth.js";
-import { toggleExampleVisibility } from "modules/fhir-data.js";
+import { getAccessToken } from "../modules/fhir-auth.js";
+import { toggleExampleVisibility } from "../modules/fhir-data.js";
 import { Icon, Step, Table, Checkbox, Loader } from "semantic-ui-react";
 
 const mapStateToProps = (state, ownProps) => ({
@@ -56,18 +56,15 @@ class Grid extends Component {
 
         {this.props.fhirData.allResourcesLoaded && (
           <React.Fragment>
-            <h2>Examples</h2>
+          
             <Table celled definition size="small">
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell />
+                  <Table.HeaderCell> Data</Table.HeaderCell>
+                  <Table.HeaderCell>Value</Table.HeaderCell>
                   <Table.HeaderCell width="four">
-                    Application Need
-                  </Table.HeaderCell>
-                  <Table.HeaderCell>FHIR Data Point</Table.HeaderCell>
-                  <Table.HeaderCell>PHI</Table.HeaderCell>
-                  <Table.HeaderCell width="four">
-                    Possible De-identification
+                    PHI
                   </Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
@@ -87,27 +84,14 @@ class Grid extends Component {
                       </Table.Cell>
                       <Table.Cell>{item.need}</Table.Cell>
                       <Table.Cell>{item.title}</Table.Cell>
-                      <Table.Cell>{item.phi}</Table.Cell>
+                     
                       <Table.Cell>
                         {item.hidden ? (
                           <React.Fragment>******</React.Fragment>
                         ) : (
                           <React.Fragment>
                             {item.deidentified}
-                            {itemKey === "radiation" && (
-                              <React.Fragment>
-                                <sup style={{ float: "right" }}>
-                                  * No Observations within the last 5 years
-                                </sup>
-                              </React.Fragment>
-                            )}
-                            {itemKey === "dob" && (
-                              <React.Fragment>
-                                <sup style={{ float: "right" }}>
-                                  * for &gt;=90 assume 90
-                                </sup>
-                              </React.Fragment>
-                            )}
+                            
                           </React.Fragment>
                         )}
                       </Table.Cell>
