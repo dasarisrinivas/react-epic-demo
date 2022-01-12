@@ -4,7 +4,6 @@ import MedflowNavbar from "./MedflowNavbar";
 import Medflows from "./Medflows";
 import MedflowTabs from "./MedflowTabs";
 import MedflowFooter from "./MedflowFooter";
-import Loader from "./Loader";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 const MedflowHome = () => {

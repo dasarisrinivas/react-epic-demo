@@ -10,7 +10,7 @@ const HistoryIllness = ({
   return (
     <div className="illnessDescriptionContainer">
       <CardDescription
-        itemsHeader="Illness Description History"
+        itemsHeader="History of Presenting Illness"
         iconToDisplay={iconToDisplay}
         description={
           <>

@@ -26,7 +26,7 @@ const MedflowNavbar = () => {
         <Navbar.Collapse>
           <Nav className="ms-auto" >
            
-            <Nav.Link href="/Medflows" className="navLink activeLink">
+            <Nav.Link href="#Medflows" className="navLink activeLink">
               <FontAwesomeIcon
                 icon={faNotesMedical}
                 className="icon"

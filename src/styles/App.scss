@@ -1,4 +1,5 @@
 $primaryColor: #217c9d;
+$borderColor: #114253;
 $backgroundColor: rgb(100, 178, 192) !important;
 $cardsackgroundColor: #20414d !important;
 $navLinksGap: 1em;
@@ -145,6 +146,7 @@ button.customButton {
   float: right;
   color: white;
   font-family: $fontFamily;
+  margin-top: -1em;
 }
 
 button.customButton:hover {
@@ -175,9 +177,9 @@ button.customButtonSave:hover {
 }
 
 .list-group-item {
-  padding: 0.2 rem 1 rem;
+  padding: 0.2em 0.5em;
   font-family: $fontFamily;
-  font-size: smaller;
+  font-size: 0.9em;
   font-weight: $textFontWeight;
   margin-top : 2pt;
 }
@@ -262,3 +264,123 @@ textarea.inputTextArea.form-control {
   top: 50%;
   margin-top: -4.05em;
 }
+
+.medflowModal{
+  width: 100%;
+  max-width: none;
+}
+
+.questionLabel{
+  line-height: 2.5;
+  font-size: 1rem;
+  color: #595959
+  
+}
+
+div.list-group-item{
+  padding: 0.3em 0.0rem;
+}
+
+.score {
+  font-size:2em;
+  font-weight: 800;
+  color: $primaryColor;
+}
+
+.medflowModalTitle{
+  color: $primaryColor;
+}
+
+.questionButtonGroup{
+  width: 100%;
+}
+
+.toggleButtonActive, .toggleButtonInactive{
+  width: 50%;
+}
+
+label.toggleButtonActive.btn.btn-primary{
+  background-color: $primaryColor;
+  border-color: $borderColor;
+}
+
+label.toggleButtonInactive.btn.btn-primary{
+  background-color: $backgroundColor;
+  border-color: $borderColor;
+}
+
+button.btn.btn-link{
+  color: $primaryColor;
+}
+
+.accordion-button:not(.collapsed), .accordion-button.collapsed {
+  background-color: $primaryColor !important;
+  color: white !important;
+}
+
+button.accordion-button::after, button.accordion-button.collapsed::after{
+  color: white;
+}
+
+.medflowModal{
+  width: 100%;
+  max-width: none;
+}
+
+.questionLabel{
+  line-height: 2.5;
+  font-size: 1rem;
+  color: #595959
+  
+}
+
+div.list-group-item{
+  padding: 0.3em 0.0rem;
+}
+
+.score {
+  font-size:2.5em;
+  font-weight: 800;
+  color: $primaryColor;
+}
+
+.medflowModalTitle{
+  color: $primaryColor;
+}
+
+.questionButtonGroup{
+  width: 100%;
+}
+
+.toggleButtonActive, .toggleButtonInactive{
+  width: 50%;
+}
+
+label.toggleButtonActive.btn.btn-primary{
+  background-color: $primaryColor;
+  border-color: $borderColor;
+}
+
+label.toggleButtonInactive.btn.btn-primary{
+  background-color: $backgroundColor;
+  border-color: $borderColor;
+}
+
+button.btn.btn-link{
+  color: $primaryColor;
+}
+
+.lowRiskWellness{
+  color: green;
+}
+
+.moderateRiskWellness{
+  color: orange;
+}
+
+.highRiskWellness{
+  color: rgb(150, 42, 42);
+}
+
+
+

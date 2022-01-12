@@ -3,9 +3,17 @@
     "src/components/MedflowHome.js": [
       {
         "id": "d756a577-c15b-41da-9398-1dbbb93e1e50",
-        "line": 7,
-        "version": 483,
-        "index": 236
+        "line": 6,
+        "version": 486,
+        "index": 235
+      }
+    ],
+    "src/components/Wellness/Wellness.js": [
+      {
+        "id": "76b46f32-0328-475b-9604-01678420ab7b",
+        "line": 42,
+        "version": 34,
+        "index": 1124
       }
     ]
   }

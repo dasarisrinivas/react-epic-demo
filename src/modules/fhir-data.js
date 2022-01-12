@@ -179,7 +179,10 @@ export function fhirDataReducer(state = defaultFhirDataState, action) {
         pastPhysicalTestsOrdered: action.pastPhysicalTestsOrdered,
         illnessDescription: action.illnessDescription,
         abnormalPhysicalTests: action.abnormalPhysicalTests,
-        assessmentPlan: action.assessmentPlan
+        assessmentPlan: action.assessmentPlan,
+        wellnessOptions: action.wellnessOptions
+
+
       };
       return {
         ...state,
@@ -253,7 +256,8 @@ export const addPatientInfo = (
   pastPhysicalTestsOrdered,
   illnessDescription,
   abnormalPhysicalTests,
-  assessmentPlan
+  assessmentPlan,
+  wellnessOptions
 ) => ({
   type: ADD_PATIENT_INFO,
   id,
@@ -277,6 +281,7 @@ export const addPatientInfo = (
   illnessDescription,
   abnormalPhysicalTests,
   assessmentPlan,
+  wellnessOptions
 });
 
 export const getFHIRData = (resourceType) => (dispatch, getState) => {
@@ -324,6 +329,16 @@ export const getFHIRData = (resourceType) => (dispatch, getState) => {
         let abnormalPhysicalTests = [];
         let assessmentPlan = [];
 
+        let wellnessOptions = {
+            signsOfDVT: true,
+            isPEDiagnosis: true,
+            isHeartRateAbove100: true,
+            isSurgeryin4Weeks: false,
+            isPEOrDVTDiagnosed: false,
+            hemotypsis: false,
+            maligancyOrpalliative: false,
+        };
+
         dispatch(
           addPatientInfo(
             patientId,
@@ -346,7 +361,8 @@ export const getFHIRData = (resourceType) => (dispatch, getState) => {
             pastPhysicalTestsOrdered,
             illnessDescription,
             abnormalPhysicalTests,
-            assessmentPlan
+            assessmentPlan,
+            wellnessOptions
           )
         );
         dispatch(getFHIRDataSucceeded(resourceType, response));
