@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Row, Col } from "react-bootstrap";
+import WellnessCalculator from "./WellnessCalculator";
 
 const Wellness = ({
   wellnessScore,
@@ -32,19 +33,20 @@ const Wellness = ({
           <Button
             variant="link"
             className="zoom mx-5 my-1"
-            size="sm"
+            size="md"
             onClick={() => setIsWellnessModalOpen(true)}
           >
             {" "}
             Calculator
           </Button>
-         <WellnessCalculator
-            isWellnessModalOpen={isWellnessModalOpen}
-            setIsWellnessModalOpen={setIsWellnessModalOpen}
+          <WellnessCalculator
+            open={isWellnessModalOpen}
+            setOpen={setIsWellnessModalOpen}
             wellnessScore={wellnessScore}
             setWellnessScore={setWellnessScore}
-            calculatorType={calculatorType}
+            wellnessCalculatorType={calculatorType}
             wellnessOptions={wellnessOptions}
+            wellnessScoreClass={wellnessScoreClass}
           />
         </div>
       </Col>

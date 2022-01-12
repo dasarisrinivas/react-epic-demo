@@ -194,6 +194,11 @@ li.data.list-group-item{
 
 .progressNotesCard {
   margin: 30px auto;
+  max-height: $progressCardHeight;
+}
+
+.historyOfIllnessCard {
+  margin: 30px auto;
   height: $progressCardHeight;
 }
 

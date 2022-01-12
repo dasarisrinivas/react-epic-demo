@@ -6,9 +6,6 @@ const Medflows = () => {
       <div className="d-md-flex shadow rounded bg-light py-0 mx-0 mt-1 infoSection">
         <ProfileInfo />
       </div>
-      {/*  <Row>
-            <MedflowTabs />
-          </Row> */}
     </div>
   );
 };

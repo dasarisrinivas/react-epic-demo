@@ -2,7 +2,7 @@ import { Card } from "react-bootstrap";
 const CardDescription = ({ itemsHeader, iconToDisplay, description }) => {
   return (
     <>
-      <Card className="shadow rounded progressNotesCard zoom">
+      <Card className="shadow rounded historyOfIllnessCard zoom">
         <Card.Header className="progressNotesCardHeader">
           {iconToDisplay}
           <strong>{itemsHeader}</strong>
