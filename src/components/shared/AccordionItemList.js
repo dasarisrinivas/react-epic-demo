@@ -1,17 +1,27 @@
 import React from "react";
 import { ListGroup, Accordion } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle, faMinusCircle } from "@fortawesome/free-solid-svg-icons";
 const AccordionItemList = ({
   itemsHeader,
   eventKey,
   listItems,
+  isExpanded,
   iconToDisplay,
 }) => {
   return (
     <Accordion.Item eventKey={eventKey}>
-      <Accordion.Header className="progressNotesCardHeader">
+      <Accordion.Header className="medflowAccodionHeader">
         {iconToDisplay}
-        <strong>{itemsHeader}</strong>
+        <strong >{itemsHeader}</strong>
+          <FontAwesomeIcon
+                icon={isExpanded ? faMinusCircle : faPlusCircle}
+                className="headerIcon mx-5"
+                size="lg"
+              />
+        
       </Accordion.Header>
+      {isExpanded && (
       <Accordion.Body>
         <div className="scrollable" id="scrollableCard">
           <ListGroup variant="flush" as="ol" numbered>
@@ -23,6 +33,7 @@ const AccordionItemList = ({
           </ListGroup>
         </div>
       </Accordion.Body>
+      )}
     </Accordion.Item>
   );
 };

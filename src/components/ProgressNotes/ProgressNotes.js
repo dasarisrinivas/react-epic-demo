@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { Row, Col, Button, Accordion } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useSelector } from "react-redux";
@@ -7,19 +7,24 @@ import {
   faBookMedical,
   faQuestionCircle,
   faHistory,
-  faStethoscope,
   faCalendarCheck,
-  faFastForward
+  faFastForward,
+  faHeartbeat,
 } from "@fortawesome/free-solid-svg-icons";
-import Wellness from "../Wellness/Wellness";
 import HistoryIllness from "./HistoryIllness";
 import AccordionItemList from "../shared/AccordionItemList";
 import RecomendedNextSteps from "./RecomendedNextSteps";
 const ProgressNotes = () => {
+  const [isComplaintsExpanded, setIsComplaintsExpanded] = useState(true);
+  const [isMedicationExpanded, setIsMedicationExpanded] = useState(true);
+  const [isPastHealthIssuesExpanded, setIsPastHealthIssuesExpanded] =
+    useState(true);
+  const [isVitalsExpanded, setIsVitalsExpanded] = useState(true);
+  const [isAssessmentPlanExpanded, setIsAssessmentPlanExpanded] =
+    useState(true);
+
   const fhirData = useSelector((state) => state.fhirData);
   const patientInfo = fhirData.patientInfo;
-  const [wellnessScore, setWellnessScore] = useState(0);
-  const [isWellnessModalOpen, setIsWellnessModalOpen] = useState(false);
   return (
     <>
       <Row className="progressNotesRow">
@@ -27,12 +32,14 @@ const ProgressNotes = () => {
           <Accordion
             defaultActiveKey={"0"}
             className="shadow rounded progressNotesCard zoom"
-            alwaysOpen
+            alwaysOpen={isComplaintsExpanded}
+            onClick={() => setIsComplaintsExpanded(!isComplaintsExpanded)}
           >
             <AccordionItemList
               itemsHeader={"Complaints"}
               eventKey={"0"}
               listItems={patientInfo.complaints}
+              isExpanded={isComplaintsExpanded}
               iconToDisplay={
                 <FontAwesomeIcon
                   icon={faQuestionCircle}
@@ -47,12 +54,14 @@ const ProgressNotes = () => {
           <Accordion
             defaultActiveKey={"0"}
             className="shadow rounded progressNotesCard zoom"
-            alwaysOpen
+            alwaysOpen={isMedicationExpanded}
+            onClick={() => setIsMedicationExpanded(!isMedicationExpanded)}
           >
             <AccordionItemList
               itemsHeader={"Medication"}
               eventKey={"0"}
               listItems={patientInfo.medication}
+              isExpanded={isMedicationExpanded}
               iconToDisplay={
                 <FontAwesomeIcon
                   icon={faPills}
@@ -67,12 +76,16 @@ const ProgressNotes = () => {
           <Accordion
             defaultActiveKey={"0"}
             className="shadow rounded progressNotesCard zoom"
-            alwaysOpen
+            alwaysOpen={isPastHealthIssuesExpanded}
+            onClick={() =>
+              setIsPastHealthIssuesExpanded(!isPastHealthIssuesExpanded)
+            }
           >
             <AccordionItemList
               itemsHeader={"Past Health Issues"}
               eventKey={"0"}
               listItems={patientInfo.pastHealthIssues}
+              isExpanded={isPastHealthIssuesExpanded}
               iconToDisplay={
                 <FontAwesomeIcon
                   icon={faBookMedical}
@@ -87,15 +100,17 @@ const ProgressNotes = () => {
           <Accordion
             defaultActiveKey={"0"}
             className="shadow rounded progressNotesCard zoom"
-            alwaysOpen
+            alwaysOpen={isVitalsExpanded}
+            onClick={() => setIsVitalsExpanded(!isVitalsExpanded)}
           >
             <AccordionItemList
-              itemsHeader={"Physical Exam"}
+              itemsHeader={"Vitals"}
               eventKey={"0"}
               listItems={patientInfo.physicalExam}
+              isExpanded={isVitalsExpanded}
               iconToDisplay={
                 <FontAwesomeIcon
-                  icon={faStethoscope}
+                  icon={faHeartbeat}
                   className="headerIcon"
                   size="lg"
                 />
@@ -105,7 +120,7 @@ const ProgressNotes = () => {
         </Col>
       </Row>
       <Row>
-        <Col xs={12} md={5}>
+        <Col xs={12} md={6}>
           <HistoryIllness
             illnessDescription={patientInfo.illnessDescription}
             abnormalPhysicalTests={patientInfo.abnormalPhysicalTests}
@@ -119,8 +134,7 @@ const ProgressNotes = () => {
             }
           />
         </Col>
-        <Col xs={12} md={4}>
-         
+        <Col xs={12} md={3}>
           <RecomendedNextSteps
             itemsHeader={"Recomended Next Steps"}
             iconToDisplay={
@@ -130,10 +144,6 @@ const ProgressNotes = () => {
                 size="lg"
               />
             }
-            wellnessScore={wellnessScore}
-            setWellnessScore={setWellnessScore}
-            isWellnessModalOpen={isWellnessModalOpen}
-            setIsWellnessModalOpen={setIsWellnessModalOpen}
             wellnessOptions={patientInfo.wellnessOptions}
             calculatorType={"Pulmonory Embolism"}
           />
@@ -142,12 +152,16 @@ const ProgressNotes = () => {
           <Accordion
             defaultActiveKey={"0"}
             className="shadow rounded progressNotesCard zoom"
-            alwaysOpen
+            alwaysOpen={isAssessmentPlanExpanded}
+            onClick={() =>
+              setIsAssessmentPlanExpanded(!isAssessmentPlanExpanded)
+            }
           >
             <AccordionItemList
               itemsHeader={"Assesment/Plan"}
               eventKey={"0"}
               listItems={patientInfo.assessmentPlan}
+              isExpanded={isAssessmentPlanExpanded}
               iconToDisplay={
                 <FontAwesomeIcon
                   icon={faCalendarCheck}

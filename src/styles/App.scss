@@ -6,7 +6,7 @@ $navLinksGap: 1em;
 $textFontWeight: 350;
 $fontFamily: "Roboto", sans-serif;
 $linkFontWeight: 500;
-$buttonFontWeight: 600;
+$buttonFontWeight: 500;
 $activeLinkFontWeight: 600;
 $progressCardHeight: 14rem;
 
@@ -143,16 +143,31 @@ button.customButton {
   background-color: $primaryColor;
   border-color: $primaryColor;
   font-weight: $buttonFontWeight;
+  width: 200px;
   float: right;
   color: white;
   font-family: $fontFamily;
   margin-top: -1em;
 }
 
+button.customWellnessButtonHover{
+   background-color: $backgroundColor;
+   color: white;
+}
+button.customWellnessButton, button.customWellnessButtonHover:hover, button.customWellnessButtonHover:active, button.customWellnessButtonHover:active:focus {
+  background-color: $primaryColor;
+  border-color: $borderColor;
+  font-weight: $buttonFontWeight;
+  color: white;
+  font-family: $fontFamily;
+  box-shadow: none;
+}
+
 button.customButton:hover {
   background-color: $primaryColor;
   border-color: $primaryColor;
   font-weight: $buttonFontWeight;
+  width: 200px;
   float: right;
   color: white;
   cursor: pointer;
@@ -163,6 +178,7 @@ button.customButtonSave {
   background-color: $primaryColor;
   border-color: $primaryColor;
   font-weight: $buttonFontWeight;
+  width: 200px;
   float: left;
   font-family: $fontFamily;
 }
@@ -172,6 +188,7 @@ button.customButtonSave:hover {
   border-color: $primaryColor;
   font-family: $fontFamily;
   font-weight: $buttonFontWeight;
+  width: 200px;
   float: left;
   cursor: pointer;
 }
@@ -257,6 +274,11 @@ textarea.inputTextArea.form-control {
   color: white;
 }
 
+.medflowAccodionHeader{
+  background-color: $primaryColor !important;
+  color: white;
+}
+
 .blocked-content {
   display: block;
 
@@ -325,6 +347,7 @@ button.btn.btn-link{
 
 button.accordion-button::after, button.accordion-button.collapsed::after{
   color: white;
+  display: none;
 }
 
 .medflowModal{
@@ -384,8 +407,49 @@ button.btn.btn-link{
 }
 
 .highRiskWellness{
-  color: rgb(150, 42, 42);
+  color: rgb(172, 42, 42);
 }
 
+.modalContentHeader {
+  font-size: larger;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+}
 
+.calculatorButton {
+  display: flex;
+  justify-content: center;
+}
+
+.flowChart{
+  padding-top: -2rem;
+  margin:'0px 0px';
+  height: 400px;
+  width: 100%;
+  position: relative;
+  margin: -3em 0em 0em 0em;
+  z-index: inherit;
+}
+
+.customButtonGroup{
+  display: flex;
+  justify-content: space-around;
+}
+
+.medflowCheckbox{
+  margin-right: 2px;
+  color: $primaryColor;
+}
+
+.wellnessDescriptionContent{
+    display: block;
+    width: 100%;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    color: #595959;
+    background-color: #d7d7d7;
+}
 

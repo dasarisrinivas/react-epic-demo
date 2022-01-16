@@ -1,9 +1,20 @@
 import React, { useState, useEffect } from "react";
 import MedflowModal from "../shared/MedflowModal";
-import { Card, ListGroup, Container, Row, Col } from "react-bootstrap";
+import {
+  Card,
+  ListGroup,
+  Container,
+  Row,
+  Col,
+  Button,
+  ButtonGroup,
+} from "react-bootstrap";
 import QuestionListItem from "../shared/QuestionListItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalculator } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCalculator,
+  faPlusCircle, faMinusCircle
+} from "@fortawesome/free-solid-svg-icons";
 const WellnessCalculator = ({
   open,
   setOpen,
@@ -30,6 +41,9 @@ const WellnessCalculator = ({
   const [maligancyOrpalliative, setMaligancyOrpalliative] = useState(
     wellnessOptions.maligancyOrpalliative
   );
+  const [isWhenToUseExpanded, setIsWhenToUseExpanded] = useState(false);
+  const [isPitfallsExpanded, setIsPitfallsExpanded] = useState(false);
+  const [isWhyUseExpanded, setIsWhyUseExpanded] = useState(false);
 
   useEffect(() => {
     let score = 0;
@@ -66,6 +80,16 @@ const WellnessCalculator = ({
     setWellnessScore,
   ]);
 
+  const toggleExpand = (
+    isWhenToUseExpand,
+    isPittfallExpand,
+    isWhyUseExpand
+  ) => {
+    setIsWhenToUseExpanded(isWhenToUseExpand);
+    setIsPitfallsExpanded(isPittfallExpand);
+    setIsWhyUseExpanded(isWhyUseExpand);
+  };
+
   return (
     <div className="wellnessModal">
       {wellnessCalculatorType === "Pulmonory Embolism" && (
@@ -82,8 +106,120 @@ const WellnessCalculator = ({
               />{" "}
             </div>
           }
-          size={"lg"}
+          size={"xl"}
         >
+          <Row className="my-2">
+            <ButtonGroup className="expanded">
+              <Button
+              className = {isWhenToUseExpanded?"customWellnessButton":"customWellnessButtonHover"}
+                variant="outline-dark"
+                size="md"
+                onClick={() => toggleExpand(!isWhenToUseExpanded, false, false)}
+              >
+                <span>When to Use</span>
+                <FontAwesomeIcon
+                  icon={isWhenToUseExpanded ? faMinusCircle : faPlusCircle}
+                  className="headerIcon mx-2"
+                  size="md"
+                />
+              </Button>
+              <Button
+                className = {isPitfallsExpanded?"customWellnessButton":"customWellnessButtonHover"}
+                variant="outline-dark"
+                size="md"
+                onClick={() => toggleExpand(false, !isPitfallsExpanded, false)}
+              >
+                <span>Pearls/Pitfalls</span>
+                <FontAwesomeIcon
+                  icon={isPitfallsExpanded ? faMinusCircle : faPlusCircle}
+                  className="headerIcon mx-2"
+                  size="md"
+                />
+              </Button>
+              <Button
+              className = {isWhyUseExpanded?"customWellnessButton":"customWellnessButtonHover"}
+                variant="outline-dark"
+                size="md"
+                onClick={() => toggleExpand(false, false, !isWhyUseExpanded)}
+              >
+                <span>Why Use</span>
+                <FontAwesomeIcon
+                  icon={isWhyUseExpanded ? faMinusCircle : faPlusCircle}
+                  className="headerIcon mx-2"
+                  size="md"
+                />
+              </Button>
+            </ButtonGroup>
+          </Row>
+          <Card className="my-3">
+            {isWhenToUseExpanded && (
+              <p className="m-3">
+                The Wells’ Criteria risk stratifies patients for pulmonary
+                embolism (PE) and provides an estimated pre-test probability.
+                The physician can then chose what further testing is required
+                for diagnosing pulmonary embolism (I.E. d-dimer or CT
+                angiogram).
+              </p>
+            )}
+
+            {isPitfallsExpanded && (
+              <>
+                <p className="m-3">
+                  The Wells’ Criteria risk stratifies patients for pulmonary
+                  embolism (PE), and has been validated in both inpatient and
+                  emergency department settings. Its score is often used in
+                  conjunctiion with d-dimer testing to evaluate for PE.
+                </p>
+                <ul>
+                  <li>
+                    There must first be a clinical suspicion for PE in the
+                    patient (this should not be applied to all patients with
+                    chest pain or shortness of breath, for example).
+                  </li>
+                  <li>
+                    Wells' can be used with either 3 tiers (low, moderate, high)
+                    or 2 tiers (unlikely, likely). We recommend the two tier
+                    model as this is supported by ACEP’s 2011 clinical policy on
+                    PE. (See Next Steps)
+                    <ul>
+                      <li>
+                        Wells’ is often criticized for having a “subjective”
+                        criterion in it (“PE #1 diagnosis or equally likely”)
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    Wells’ is not meant to diagnose PE but to guide workup by
+                    predicting pre-test probability of PE and appropriate
+                    testing to rule out the diagnosis.
+                  </li>
+                </ul>
+              </>
+            )}
+
+            {isWhyUseExpanded && (
+              <ul className="m-3">
+                <li>
+                  The Wells’ Score has been validated multiple times in multiple
+                  clinical settings.
+                  <ul>
+                    <li>
+                      Physicians have a low threshold to test for pulmonary
+                      embolism.
+                    </li>
+                    <li>
+                      The score is simple to use and provides clear cutoffs for
+                      the predicted probability of pulmonary embolism.
+                    </li>
+                    <li>
+                      The score aids in potentially reducing the number of CTAs
+                      performed on low-risk PE patients.
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            )}
+          </Card>
           <Card>
             <ListGroup variant="flush">
               <QuestionListItem
@@ -150,8 +286,8 @@ const WellnessCalculator = ({
               />
             </ListGroup>
           </Card>
-          <Card className="scoreCard mt-2">
-            <Container>
+          <Card className="scoreCard mt-4">
+            <Container className="my-2">
               <Row>
                 <Col xs={12} md={2}>
                   <p className="my-2">
@@ -165,8 +301,8 @@ const WellnessCalculator = ({
                   {wellnessScore < 2 && (
                     <>
                       <p className="mx-3">
-                        <strong className={wellnessScoreClass}>Low</strong> risk group: 1.3%
-                        chance of PE in an ED population.
+                        <strong className={wellnessScoreClass}>Low</strong> risk
+                        group: 1.3% chance of PE in an ED population.
                       </p>
                       <p className="mx-3">
                         Another study assigned scores ≤ 4 as “PE Unlikely” and
@@ -178,8 +314,8 @@ const WellnessCalculator = ({
                   {wellnessScore >= 2 && wellnessScore <= 4 && (
                     <>
                       <p className="mx-3">
-                        <strong className={wellnessScoreClass}>Moderate</strong> risk group:
-                        16.2% chance of PE in an ED population.
+                        <strong className={wellnessScoreClass}>Moderate</strong>{" "}
+                        risk group: 16.2% chance of PE in an ED population.
                       </p>
                       <p className="mx-3">
                         Another study assigned scores ≤ 4 as “PE Unlikely” and
@@ -191,8 +327,8 @@ const WellnessCalculator = ({
                   {wellnessScore === 4.5 && (
                     <>
                       <p className="mx-3">
-                        <strong className={wellnessScoreClass}>Moderate</strong> risk group:
-                        16.2% chance of PE in an ED population.
+                        <strong className={wellnessScoreClass}>Moderate</strong>{" "}
+                        risk group: 16.2% chance of PE in an ED population.
                       </p>
                       <p className="mx-3">
                         Another study assigned scores ≤ 4 as “PE Unlikely” and
@@ -207,8 +343,8 @@ const WellnessCalculator = ({
                   {wellnessScore > 4.5 && wellnessScore < 6 && (
                     <>
                       <p className="mx-3">
-                        <strong className={wellnessScoreClass}>Moderate</strong> risk group:
-                        16.2% chance of PE in an ED population.
+                        <strong className={wellnessScoreClass}>Moderate</strong>{" "}
+                        risk group: 16.2% chance of PE in an ED population.
                       </p>
                       <p className="mx-3">
                         Another study assigned scores > 4 as “PE Likely” and had
@@ -220,8 +356,8 @@ const WellnessCalculator = ({
                   {wellnessScore >= 6 && (
                     <>
                       <p className="mx-3">
-                        <strong className={wellnessScoreClass}>High </strong> risk group:
-                        40.6% chance of PE in an ED population.
+                        <strong className={wellnessScoreClass}>High </strong>{" "}
+                        risk group: 40.6% chance of PE in an ED population.
                       </p>
                       <p className="mx-3">
                         Another study assigned scores > 4 as “PE Likely” and had
@@ -229,6 +365,20 @@ const WellnessCalculator = ({
                       </p>
                     </>
                   )}
+                </Col>
+              </Row>
+
+              <Row>
+                <Col sm={12}>
+                  <div className="my-2">
+                    <Button
+                      className="customButton"
+                      size="lg"
+                      onClick={() => setOpen(false)}
+                    >
+                      Close
+                    </Button>
+                  </div>
                 </Col>
               </Row>
             </Container>
