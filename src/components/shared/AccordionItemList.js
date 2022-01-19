@@ -16,7 +16,7 @@ const AccordionItemList = ({
         <strong >{itemsHeader}</strong>
           <FontAwesomeIcon
                 icon={isExpanded ? faMinusCircle : faPlusCircle}
-                className="headerIcon mx-5"
+                className="headerIcon mx-2"
                 size="lg"
               />
         

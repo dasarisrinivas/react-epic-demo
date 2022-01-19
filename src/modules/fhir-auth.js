@@ -174,6 +174,7 @@ const fhirGetMetadataSucceeded = (authorizeUrl, tokenUrl) => ({
   authorizeUrl,
   tokenUrl
 });
+
 const fhirGetMetadataFailed = error => ({
   type: FHIR_GET_METADATA_FAILED,
   error
@@ -198,6 +199,7 @@ export const getAccessToken = uri => (dispatch, getState) => {
     dispatch(setIssuer(oauth.iss));
     dispatch(accessTokenReceived(response));
     dispatch(getFHIRData("patient"));
+    //dispatch(getFHIRData("observation"));
     //setTimeout(() => {
     //  dispatch(getFHIRData("conditions"));
    // }, 100);

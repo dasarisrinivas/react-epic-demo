@@ -8,7 +8,7 @@ $fontFamily: "Roboto", sans-serif;
 $linkFontWeight: 500;
 $buttonFontWeight: 500;
 $activeLinkFontWeight: 600;
-$progressCardHeight: 14rem;
+$progressCardHeight: 55vh;
 
 .App {
   position: relative;
@@ -210,24 +210,22 @@ li.data.list-group-item{
 }
 
 .progressNotesCard {
-  margin: 30px auto;
-  max-height: $progressCardHeight;
+  margin: 2em auto;
 }
 
 .historyOfIllnessCard {
-  margin: 30px auto;
-  height: $progressCardHeight;
+  margin: 2em auto;
 }
 
 .scrollable {
   overflow-y: auto;
   scroll-behavior: smooth;
+  min-height: 50vh;
   max-height: $progressCardHeight;
 }
 
 div.progressNotesRow.row {
   margin-top: -1.2rem;
-  margin-bottom: -3rem;
 }
 
 .descriptionLink {
@@ -239,7 +237,9 @@ div.progressNotesRow.row {
 
 div.cardDescriptionBody.card-body {
   font-family: $fontFamily;
-  padding: 0.3rem 0.3rem;
+  padding: 0.5rem 0.5rem;
+  min-height: 55vh;
+  max-height: 65vh;
 }
 
 .illnessDescriptionContent {
@@ -289,7 +289,6 @@ textarea.inputTextArea.form-control {
   display: block;
   position: absolute;
   top: 50%;
-  margin-top: -4.05em;
 }
 
 .medflowModal{
@@ -452,4 +451,3 @@ button.btn.btn-link{
     color: #595959;
     background-color: #d7d7d7;
 }
-

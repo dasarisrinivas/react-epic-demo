@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FlowDiagram from "../shared/FlowDiagram";
 import MedflowModal from "../shared/MedflowModal";
 import { buildPERecomendationFlowDiagram } from "../FlowElements/PEWellScoreElements";
@@ -18,6 +18,7 @@ const PEWellScoreFlowChart = ({
   const [disableSaveButton, setDisableSaveButton] = useState(true);
   const [isWellnessCalculatorModalOpen, setIsWellnessCalculatorModalOpen] =
     useState(false);
+
   return (
     <div className="wellnessModal">
       {wellnessCalculatorType === "Pulmonory Embolism" && (
@@ -89,14 +90,14 @@ const PEWellScoreFlowChart = ({
                   <Button
                     variant={disableSaveButton ? "secondary" : "primary"}
                     className="customButton"
-                    size="lg"
+                    size="md"
                     disabled={disableSaveButton}
                   >
                     Add to Order
                   </Button>
                   <Button
                       className="customButton"
-                      size="lg"
+                      size="md"
                       onClick={() => setOpen(false)}
                     >
                       Close

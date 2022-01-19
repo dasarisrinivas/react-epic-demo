@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Card, Button } from "react-bootstrap";
 import PEWellScoreFlowChart from "../flowcharts/PEWellScoreFlowChart";
+import { getPEWellsScore } from "../../builders/PEWellsCalculator"
 const RecomendedNextSteps = ({
   itemsHeader,
   iconToDisplay,
   wellnessOptions,
-  calculatorType,
+  calculatorType
 }) => {
-  const [wellnessScore, setWellnessScore] = useState();
+  const [isWellnessChartModalOpen, setIsWellnessChartModalOpen] =
+    useState(false);
+  const [wellnessScore, setWellnessScore] = useState(getPEWellsScore(wellnessOptions.signsOfDVT,wellnessOptions.isPEDiagnosis, wellnessOptions.isHeartRateAbove100, wellnessOptions.isSurgeryin4Weeks, wellnessOptions.isPEOrDVTDiagnosed, wellnessOptions.hemotypsis, wellnessOptions.maligancyOrpalliative));
   const [wellnessScoreClass, setWellnessScoreClass] =
     useState("lowRiskWellness");
   const [wellnessLevel, setWellnessLevel] = useState("");
-  const [isWellnessChartModalOpen, setIsWellnessChartModalOpen] =
-    useState(false);
 
   useEffect(() => {
     if (wellnessScore < 2) {
@@ -21,15 +22,18 @@ const RecomendedNextSteps = ({
     } else if (wellnessScore >= 2 && wellnessScore < 6) {
       setWellnessScoreClass("moderateRiskWellness");
       setWellnessLevel("Moderate");
-    } else {
+    } else if (wellnessScore > 6) {
       setWellnessScoreClass("highRiskWellness");
       setWellnessLevel("High");
     }
-  }, [wellnessScore, wellnessLevel]);
-
+  }, [wellnessScore]);
+  
   return (
     <>
-      <Card className="shadow rounded historyOfIllnessCard zoom">
+      <Card
+        className="shadow rounded historyOfIllnessCard"
+        border={wellnessLevel === "High" ? "danger" : ""}
+      >
         <Card.Header className="progressNotesCardHeader">
           {iconToDisplay}
           <strong>{itemsHeader}</strong>
@@ -41,33 +45,28 @@ const RecomendedNextSteps = ({
             size="md"
             onClick={() => setIsWellnessChartModalOpen(true)}
           >
-          Wellness Flow chart - <span className={wellnessScoreClass}>{wellnessLevel}{" "}</span> Risk Level
+            <span className={wellnessScoreClass}>
+              {" "}
+              Wells' Flow chart - {wellnessLevel} Risk Level{" "}
+            </span>
           </Button>
           <PEWellScoreFlowChart
             open={isWellnessChartModalOpen}
             setOpen={setIsWellnessChartModalOpen}
             wellnessScore={wellnessScore}
             setWellnessScore={setWellnessScore}
-            wellnessCalculatorType={"Pulmonory Embolism"}
+            wellnessCalculatorType={calculatorType}
             wellnessOptions={wellnessOptions}
             wellnessScoreClass={wellnessScoreClass}
             wellnessLevel={wellnessLevel}
             zoomLevel={1.5}
           />
-          <Button
-            variant="link"
-            className="zoom"
-            size="md"
-          >
-          Check BP in both arms
-          </Button>
-
-          <Button
-            variant="link"
-            className="zoom"
-            size="md"
-          >
-          Cardiac Risk Score
+          <Button variant="link" className="zoom" size="md">
+            Check BP in both arms
+          </Button>{" "}
+          <br />
+          <Button variant="link" className="zoom" size="md">
+            Cardiac Risk Score
           </Button>
         </Card.Body>
       </Card>

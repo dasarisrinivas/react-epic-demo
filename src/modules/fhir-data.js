@@ -1,5 +1,5 @@
 import moment from "moment";
-
+import { buildPatientInfo } from "../builders/PatientInfoBuilder";
 /***** Actions *****/
 export const FHIR_GET_DATA = "FHIR/GET_DATA";
 const FHIR_GET_DATA_FAILED = "FHIR/GET_DATA_FAILED";
@@ -180,9 +180,7 @@ export function fhirDataReducer(state = defaultFhirDataState, action) {
         illnessDescription: action.illnessDescription,
         abnormalPhysicalTests: action.abnormalPhysicalTests,
         assessmentPlan: action.assessmentPlan,
-        wellnessOptions: action.wellnessOptions
-
-
+        wellnessOptions: action.wellnessOptions,
       };
       return {
         ...state,
@@ -281,7 +279,7 @@ export const addPatientInfo = (
   illnessDescription,
   abnormalPhysicalTests,
   assessmentPlan,
-  wellnessOptions
+  wellnessOptions,
 });
 
 export const getFHIRData = (resourceType) => (dispatch, getState) => {
@@ -295,30 +293,20 @@ export const getFHIRData = (resourceType) => (dispatch, getState) => {
     client
       .read({ type: "Patient", id: patientId })
       .then((response) => {
-        let today = new Date();
-        let dob = response.data.birthDate;
-        let birthDate = new Date(dob);
-        let age = today.getFullYear() - birthDate.getFullYear();
-        var m = today.getMonth() - birthDate.getMonth();
-        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-          age--;
-        }
-        let fullName = response.data.name.find((element) => element.use === "official").text;
-        let gender = response.data.gender;
-        if (gender === "male" || gender === "Male") {
-          gender = "M";
-        } else if (gender === "female" || gender === "Female") {
-          gender = "F";
-        }
-        let phoneNumber = response.data.telecom.find((element) => element.system === "phone").value;
-        let maritalStatus = response.data.maritalStatus.text;
-        const address = response.data.address.find((element) => element.use === "home");
-        let addressLine1 = address.line[0];
-        let addressLine2 = address.line.length > 1 ? address.line[1] : "";
-        let city = address.city;
-        let state = address.state;
-        let postalCode = address.postalCode;
-        let country = address.country;
+        const {
+          fullName,
+          age,
+          dob,
+          gender,
+          phoneNumber,
+          maritalStatus,
+          addressLine1,
+          addressLine2,
+          city,
+          state,
+          postalCode,
+          country,
+        } = buildPatientInfo(response);
 
         let complaints = [];
         let pastHealthIssues = [];
@@ -330,13 +318,13 @@ export const getFHIRData = (resourceType) => (dispatch, getState) => {
         let assessmentPlan = [];
 
         let wellnessOptions = {
-            signsOfDVT: true,
-            isPEDiagnosis: true,
-            isHeartRateAbove100: true,
-            isSurgeryin4Weeks: false,
-            isPEOrDVTDiagnosed: false,
-            hemotypsis: false,
-            maligancyOrpalliative: false,
+          signsOfDVT: true,
+          isPEDiagnosis: true,
+          isHeartRateAbove100: true,
+          isSurgeryin4Weeks: false,
+          isPEOrDVTDiagnosed: true,
+          hemotypsis: false,
+          maligancyOrpalliative: false,
         };
 
         dispatch(

@@ -373,10 +373,10 @@ const WellnessCalculator = ({
                   <div className="my-2">
                     <Button
                       className="customButton"
-                      size="lg"
+                      size="md"
                       onClick={() => setOpen(false)}
                     >
-                      Close
+                      Submit
                     </Button>
                   </div>
                 </Col>
