@@ -199,7 +199,7 @@ export function fhirDataReducer(state = defaultFhirDataState, action) {
       };
 
     case ADD_WELLNESS_OPTIONS:
-      let welllnessOptions = {
+      let wellnessOptions = {
         signsOfDVT: action.signsOfDVT,
         isPEDiagnosis: action.isPEDiagnosis,
         isHeartRateAbove100: action.isHeartRateAbove100,
@@ -210,8 +210,18 @@ export function fhirDataReducer(state = defaultFhirDataState, action) {
       };
       return {
         ...state,
-        welllnessOptions,
+        wellnessOptions,
       };
+    
+    case UPDATE_WELLNESS_OPTIONS: 
+      return {
+        ...state,
+        wellnessOptions: {
+          ...state.wellnessOptions,
+          [action.key] : action.value
+        },
+    };
+
     case TOGGLE_EXAMPLE_VISIBILITY:
       return {
         ...state,
@@ -248,6 +258,8 @@ export const toggleExampleVisibility = (exampleKey) => ({
   type: TOGGLE_EXAMPLE_VISIBILITY,
   exampleKey,
 });
+
+
 
 export const addExampleData = (key, need, title, phi, deidentified) => ({
   type: ADD_EXAMPLE_DATA,
@@ -322,6 +334,13 @@ export const addWellnessOptions = (
   isPEOrDVTDiagnosed,
   hemotypsis,
   maligancyOrpalliative,
+});
+
+export const updateWellnessOptions = (key, value) => ({
+  type: UPDATE_WELLNESS_OPTIONS,
+  key: key,
+  value: value
+
 });
 
 export const getFHIRData = (resourceType) => (dispatch, getState) => {

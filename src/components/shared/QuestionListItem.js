@@ -7,6 +7,10 @@ import {
   Col,
   Container
 } from "react-bootstrap";
+
+import {useDispatch} from "react-redux";
+
+import {updateWellnessOptions} from "../../modules/fhir-data";
 const QuestionListItem = ({
   questionDescription,
   value,
@@ -14,7 +18,11 @@ const QuestionListItem = ({
   yesLabel,
   id1,
   id2,
+  questionKey
 }) => {
+
+  const dispatch = useDispatch();
+
   const [buttonNoClass, setButtonNoClass] = useState("");
   const [buttonYesClass, setButtonYesClass] = useState("");
 
@@ -30,6 +38,11 @@ const QuestionListItem = ({
       setButtonNoClass("toggleButtonActive");
     }
   }, [value]);
+
+  const updateValue = (newKey) => {
+    dispatch(updateWellnessOptions(newKey, !value));
+    setValue(!value);
+  }
 
   return (
     <ListGroup.Item className="questionListItem">
@@ -49,7 +62,7 @@ const QuestionListItem = ({
                 value={value}
                 defaultValue={value}
                 className="questionButtonGroup"
-                onChange={() =>  setValue(!value)}
+                onChange={() =>  updateValue(questionKey)}
               >
                 <ToggleButton id={id1} value={false} className={buttonNoClass}>
                   No 0

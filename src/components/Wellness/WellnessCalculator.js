@@ -229,6 +229,7 @@ const WellnessCalculator = ({
                 yesLabel={"3"}
                 id1={"signsOfDVT1"}
                 id2={"signsOfDVT2"}
+                questionKey={"signsOfDVT"}
               />
               <QuestionListItem
                 questionDescription={"PE is #1 diagnosis OR equally likely"}
@@ -237,6 +238,7 @@ const WellnessCalculator = ({
                 yesLabel={"3"}
                 id1={"isPEDiagnosis1"}
                 id2={"isPEDiagnosis2"}
+                questionKey={"isPEDiagnosis"}
               />
               <QuestionListItem
                 questionDescription={"Heart rate > 100"}
@@ -245,6 +247,7 @@ const WellnessCalculator = ({
                 yesLabel={"1.5"}
                 id1={"isHeartRateAbove1001"}
                 id2={"isHeartRateAbove1002"}
+                questionKey={"isHeartRateAbove100"}
               />
               <QuestionListItem
                 questionDescription={
@@ -255,6 +258,7 @@ const WellnessCalculator = ({
                 yesLabel={"1.5"}
                 id1={"isSurgeryin4Weeks1"}
                 id2={"isSurgeryin4Weeks2"}
+                questionKey={"isSurgeryin4Weeks"}
               />
               <QuestionListItem
                 questionDescription={
@@ -265,6 +269,7 @@ const WellnessCalculator = ({
                 yesLabel={"1.5"}
                 id1={"isPEOrDVTDiagnosed1"}
                 id2={"isPEOrDVTDiagnosed2"}
+                questionKey={"isPEOrDVTDiagnosed"}
               />
               <QuestionListItem
                 questionDescription={"Hemoptysis"}
@@ -273,6 +278,7 @@ const WellnessCalculator = ({
                 yesLabel={"1"}
                 id1={"hemotypsis1"}
                 id2={"hemotypsis2"}
+                questionKey={"hemotypsis"}
               />
               <QuestionListItem
                 questionDescription={
@@ -283,6 +289,7 @@ const WellnessCalculator = ({
                 yesLabel={"1"}
                 id1={"maligancyOrpalliative1"}
                 id2={"maligancyOrpalliative2"}
+                questionKey={"maligancyOrpalliative"}
               />
             </ListGroup>
           </Card>

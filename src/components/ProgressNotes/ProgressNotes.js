@@ -1,8 +1,9 @@
-  import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Container } from "react-bootstrap";
 import HistoryIllness from "./HistoryIllness";
 import AccordionItemList from "../shared/AccordionItemList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getPEWellsScore } from "../../builders/PEWellsCalculator"
 import {
   faPills,
   faBookMedical,
@@ -21,7 +22,7 @@ import { DragHandle } from "./DragHandle";
 const ProgressNotes = () => {
   const fhirData = useSelector((state) => state.fhirData);
   const patientInfo = fhirData.patientInfo;
-  const wellnessOptions= fhirData.welllnessOptions;
+  const wellnessOptions = fhirData.wellnessOptions;
   const [isComplaintsExpanded, setIsComplaintsExpanded] = useState(true);
   const [isMedicationExpanded, setIsMedicationExpanded] = useState(true);
   const [isPastHealthIssuesExpanded, setIsPastHealthIssuesExpanded] =
@@ -30,67 +31,57 @@ const ProgressNotes = () => {
   const [isAssessmentPlanExpanded, setIsAssessmentPlanExpanded] =
     useState(true);
   const [selectedMenuItemId, setSelectedMenuItemId] = useState(1);
-
+  const [wellnessScoreClass, setWellnessScoreClass] =
+    useState("lowRiskWellness");
+  const [wellnessLevel, setWellnessLevel] = useState("");
+  const [wellnessScore, setWellnessScore] = useState(getPEWellsScore(wellnessOptions.signsOfDVT,wellnessOptions.isPEDiagnosis, wellnessOptions.isHeartRateAbove100, wellnessOptions.isSurgeryin4Weeks, wellnessOptions.isPEOrDVTDiagnosed, wellnessOptions.hemotypsis, wellnessOptions.maligancyOrpalliative));
   const [navMenuList, setNavMenuList] = useState([
     {
       id: 1,
       title: "Assesment/Plan",
-      icon: (
-        <FontAwesomeIcon
-          icon={faCalendarCheck}
-          className={"headerIcon"}
-          size="lg"
-        />
-      ),
     },
     {
       id: 2,
       title: "Complaints",
-      icon: (
-        <FontAwesomeIcon
-          icon={faQuestionCircle}
-          className={"headerIcon"}
-          size="lg"
-        />
-      ),
     },
     {
       id: 3,
       title: "History Of Presenting Illness",
-      icon: (
-        <FontAwesomeIcon icon={faHistory} className={"headerIcon"} size="lg" />
-      ),
     },
     {
       id: 4,
       title: "Medication",
-      icon: (
-        <FontAwesomeIcon icon={faPills} className={"headerIcon"} size="lg" />
-      ),
     },
     {
       id: 5,
       title: "Past Health Issues",
-      icon: (
-        <FontAwesomeIcon
-          icon={faBookMedical}
-          className={"headerIcon"}
-          size="lg"
-        />
-      ),
     },
     {
       id: 6,
       title: "Vitals",
-      icon: (
-        <FontAwesomeIcon
-          icon={faHeartbeat}
-          className={"headerIcon"}
-          size="lg"
-        />
-      ),
     },
   ]);
+
+  useEffect(() => {
+      const data = localStorage.getItem("draggableNavMenuList");
+      if(data){
+        setNavMenuList(JSON.parse(data));
+      }
+  }, [])
+
+
+  useEffect(() => {
+    if (wellnessScore < 2) {
+      setWellnessScoreClass("lowRiskWellness");
+      setWellnessLevel("Low");
+    } else if (wellnessScore >= 2 && wellnessScore < 6) {
+      setWellnessScoreClass("moderateRiskWellness");
+      setWellnessLevel("Moderate");
+    } else if (wellnessScore >= 6) {
+      setWellnessScoreClass("highRiskWellness");
+      setWellnessLevel("High");
+    }
+  }, [wellnessScore]);
 
   const getListItemStyle = (draggableStyle, isDragging) => ({
     boxShadow: isDragging ? "0 0 .6rem #666" : "none",
@@ -112,6 +103,22 @@ const ProgressNotes = () => {
       setIsVitalsExpanded(true);
     }
   };
+
+  const getIcon = (id) => {
+    if (id === 1) {
+      return faCalendarCheck;
+    } else if (id === 2) {
+      return faQuestionCircle;
+    } else if (id === 3) {
+      return faHistory;
+    } else if (id === 4) {
+      return faPills;
+    } else if (id === 5) {
+      return faBookMedical;
+    } else if (id === 6) {
+      return faHeartbeat;
+    }
+  };
   return (
     <>
       <Container fluid>
@@ -125,6 +132,7 @@ const ProgressNotes = () => {
                   if (desI) {
                     navMenuList.splice(desI, 0, navMenuList.splice(srcI, 1)[0]);
                     setNavMenuList(navMenuList);
+                    localStorage.setItem("draggableNavMenuList", JSON.stringify(navMenuList));
                   }
                 }}
               >
@@ -153,7 +161,13 @@ const ProgressNotes = () => {
                                   {...provided.dragHandleProps}
                                   title={item.title}
                                 >
-                                  <span>{item.icon}</span>
+                                  <span>
+                                    <FontAwesomeIcon
+                                      icon={getIcon(item.id)}
+                                      className={"headerIcon"}
+                                      size="lg"
+                                    />
+                                  </span>
                                   <strong>{item.title}</strong>
                                 </DragHandle>
                               </ListItem>
@@ -325,8 +339,13 @@ const ProgressNotes = () => {
                       size="lg"
                     />
                   }
+
+                  wellnessScore={wellnessScore}
+                  setWellnessScore={setWellnessScore}
                   wellnessOptions={wellnessOptions}
                   calculatorType={"Pulmonory Embolism"}
+                  wellnessScoreClass={wellnessScoreClass}
+                  wellnessLevel={wellnessLevel}
                 />
               </Col>
             </Row>
