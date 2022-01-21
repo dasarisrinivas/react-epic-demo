@@ -22,7 +22,7 @@ const RecomendedNextSteps = ({
     } else if (wellnessScore >= 2 && wellnessScore < 6) {
       setWellnessScoreClass("moderateRiskWellness");
       setWellnessLevel("Moderate");
-    } else if (wellnessScore > 6) {
+    } else if (wellnessScore >= 6) {
       setWellnessScoreClass("highRiskWellness");
       setWellnessLevel("High");
     }
@@ -32,13 +32,12 @@ const RecomendedNextSteps = ({
     <>
       <Card
         className="shadow rounded historyOfIllnessCard"
-        border={wellnessLevel === "High" ? "danger" : ""}
       >
         <Card.Header className="progressNotesCardHeader">
           {iconToDisplay}
           <strong>{itemsHeader}</strong>
         </Card.Header>
-        <Card.Body>
+        <Card.Body className="cardDescriptionBody">
           <Button
             variant="link"
             className="zoom"
@@ -59,7 +58,7 @@ const RecomendedNextSteps = ({
             wellnessOptions={wellnessOptions}
             wellnessScoreClass={wellnessScoreClass}
             wellnessLevel={wellnessLevel}
-            zoomLevel={1.5}
+            zoomLevel={1.2}
           />
           <Button variant="link" className="zoom" size="md">
             Check BP in both arms

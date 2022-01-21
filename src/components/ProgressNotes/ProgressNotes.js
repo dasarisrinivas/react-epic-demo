@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+  import React, { useState, useEffect } from "react";
 import { Row, Col, Button, Container } from "react-bootstrap";
 import HistoryIllness from "./HistoryIllness";
 import AccordionItemList from "../shared/AccordionItemList";
@@ -21,6 +21,7 @@ import { DragHandle } from "./DragHandle";
 const ProgressNotes = () => {
   const fhirData = useSelector((state) => state.fhirData);
   const patientInfo = fhirData.patientInfo;
+  const wellnessOptions= fhirData.welllnessOptions;
   const [isComplaintsExpanded, setIsComplaintsExpanded] = useState(true);
   const [isMedicationExpanded, setIsMedicationExpanded] = useState(true);
   const [isPastHealthIssuesExpanded, setIsPastHealthIssuesExpanded] =
@@ -28,51 +29,11 @@ const ProgressNotes = () => {
   const [isVitalsExpanded, setIsVitalsExpanded] = useState(true);
   const [isAssessmentPlanExpanded, setIsAssessmentPlanExpanded] =
     useState(true);
-  const [selectedMenuItemId, setSelectedMenuItemId] = useState(6);
+  const [selectedMenuItemId, setSelectedMenuItemId] = useState(1);
 
   const [navMenuList, setNavMenuList] = useState([
     {
-      id: 0,
-      title: "Complaints",
-      icon: (
-        <FontAwesomeIcon
-          icon={faQuestionCircle}
-          className={"headerIcon"}
-          size="lg"
-        />
-      ),
-    },
-    {
       id: 1,
-      title: "Medication",
-      icon: (
-        <FontAwesomeIcon icon={faPills} className={"headerIcon"} size="lg" />
-      ),
-    },
-    {
-      id: 2,
-      title: "Past Health Issues",
-      icon: (
-        <FontAwesomeIcon
-          icon={faBookMedical}
-          className={"headerIcon"}
-          size="lg"
-        />
-      ),
-    },
-    {
-      id: 3,
-      title: "Vitals",
-      icon: (
-        <FontAwesomeIcon
-          icon={faHeartbeat}
-          className={"headerIcon"}
-          size="lg"
-        />
-      ),
-    },
-    {
-      id: 4,
       title: "Assesment/Plan",
       icon: (
         <FontAwesomeIcon
@@ -83,18 +44,47 @@ const ProgressNotes = () => {
       ),
     },
     {
-      id: 5,
+      id: 2,
+      title: "Complaints",
+      icon: (
+        <FontAwesomeIcon
+          icon={faQuestionCircle}
+          className={"headerIcon"}
+          size="lg"
+        />
+      ),
+    },
+    {
+      id: 3,
       title: "History Of Presenting Illness",
       icon: (
         <FontAwesomeIcon icon={faHistory} className={"headerIcon"} size="lg" />
       ),
     },
     {
-      id: 6,
-      title: "Recommended Next Steps",
+      id: 4,
+      title: "Medication",
+      icon: (
+        <FontAwesomeIcon icon={faPills} className={"headerIcon"} size="lg" />
+      ),
+    },
+    {
+      id: 5,
+      title: "Past Health Issues",
       icon: (
         <FontAwesomeIcon
-          icon={faFastForward}
+          icon={faBookMedical}
+          className={"headerIcon"}
+          size="lg"
+        />
+      ),
+    },
+    {
+      id: 6,
+      title: "Vitals",
+      icon: (
+        <FontAwesomeIcon
+          icon={faHeartbeat}
           className={"headerIcon"}
           size="lg"
         />
@@ -109,25 +99,17 @@ const ProgressNotes = () => {
   });
 
   const buildSelectedMenuItemId = (id) => {
-    if (id === 0) {
-      setSelectedMenuItemId(id);
-      setIsComplaintsExpanded(true);
-    } else if (id === 1) {
-      setSelectedMenuItemId(id);
-      setIsMedicationExpanded(true);
-    } else if (id === 2) {
-      setSelectedMenuItemId(id);
-      setIsPastHealthIssuesExpanded(true);
-    } else if (id === 3) {
-      setSelectedMenuItemId(id);
-      setIsVitalsExpanded(true);
-    } else if (id === 4) {
-      setSelectedMenuItemId(4);
+    setSelectedMenuItemId(id);
+    if (id === 1) {
       setIsAssessmentPlanExpanded(true);
+    } else if (id === 2) {
+      setIsComplaintsExpanded(true);
+    } else if (id === 4) {
+      setIsMedicationExpanded(true);
     } else if (id === 5) {
-      setSelectedMenuItemId(selectedMenuItemId);
-    } else {
-      setSelectedMenuItemId(6);
+      setIsPastHealthIssuesExpanded(true);
+    } else if (id === 6) {
+      setIsVitalsExpanded(true);
     }
   };
   return (
@@ -195,105 +177,7 @@ const ProgressNotes = () => {
           <Col xs={6} md={9}>
             <Row>
               <Col xs={12} md={6}>
-                {selectedMenuItemId === 0 && (
-                  <Accordion
-                    defaultActiveKey={"0"}
-                    className="shadow rounded progressNotesCard"
-                    alwaysOpen={isComplaintsExpanded}
-                    onClick={() =>
-                      setIsComplaintsExpanded(!isComplaintsExpanded)
-                    }
-                  >
-                    <AccordionItemList
-                      itemsHeader={"Complaints"}
-                      eventKey={"0"}
-                      listItems={patientInfo.complaints}
-                      isExpanded={isComplaintsExpanded}
-                      iconToDisplay={
-                        <FontAwesomeIcon
-                          icon={faQuestionCircle}
-                          className="headerIcon"
-                          size="lg"
-                        />
-                      }
-                    />
-                  </Accordion>
-                )}
-
                 {selectedMenuItemId === 1 && (
-                  <Accordion
-                    defaultActiveKey={"0"}
-                    className="shadow rounded progressNotesCard"
-                    alwaysOpen={isMedicationExpanded}
-                    onClick={() =>
-                      setIsMedicationExpanded(!isMedicationExpanded)
-                    }
-                  >
-                    <AccordionItemList
-                      itemsHeader={"Medication"}
-                      eventKey={"0"}
-                      listItems={patientInfo.medication}
-                      isExpanded={isMedicationExpanded}
-                      iconToDisplay={
-                        <FontAwesomeIcon
-                          icon={faPills}
-                          className="headerIcon"
-                          size="lg"
-                        />
-                      }
-                    />
-                  </Accordion>
-                )}
-
-                {selectedMenuItemId === 2 && (
-                  <Accordion
-                    defaultActiveKey={"0"}
-                    className="shadow rounded progressNotesCard"
-                    alwaysOpen={isPastHealthIssuesExpanded}
-                    onClick={() =>
-                      setIsPastHealthIssuesExpanded(!isPastHealthIssuesExpanded)
-                    }
-                  >
-                    <AccordionItemList
-                      itemsHeader={"Past Health Issues"}
-                      eventKey={"0"}
-                      listItems={patientInfo.pastHealthIssues}
-                      isExpanded={isPastHealthIssuesExpanded}
-                      iconToDisplay={
-                        <FontAwesomeIcon
-                          icon={faBookMedical}
-                          className="headerIcon"
-                          size="lg"
-                        />
-                      }
-                    />
-                  </Accordion>
-                )}
-
-                {selectedMenuItemId === 3 && (
-                  <Accordion
-                    defaultActiveKey={"0"}
-                    className="shadow rounded progressNotesCard"
-                    alwaysOpen={isVitalsExpanded}
-                    onClick={() => setIsVitalsExpanded(!isVitalsExpanded)}
-                  >
-                    <AccordionItemList
-                      itemsHeader={"Vitals"}
-                      eventKey={"0"}
-                      listItems={patientInfo.physicalExam}
-                      isExpanded={isVitalsExpanded}
-                      iconToDisplay={
-                        <FontAwesomeIcon
-                          icon={faHeartbeat}
-                          className="headerIcon"
-                          size="lg"
-                        />
-                      }
-                    />
-                  </Accordion>
-                )}
-
-                {selectedMenuItemId === 4 && (
                   <Accordion
                     defaultActiveKey={"0"}
                     className="shadow rounded progressNotesCard"
@@ -318,34 +202,131 @@ const ProgressNotes = () => {
                   </Accordion>
                 )}
 
-                {selectedMenuItemId === 6 && (
-                  <RecomendedNextSteps
-                    itemsHeader={"Recomended Next Steps"}
+                {selectedMenuItemId === 2 && (
+                  <Accordion
+                    defaultActiveKey={"0"}
+                    className="shadow rounded progressNotesCard"
+                    alwaysOpen={isComplaintsExpanded}
+                    onClick={() =>
+                      setIsComplaintsExpanded(!isComplaintsExpanded)
+                    }
+                  >
+                    <AccordionItemList
+                      itemsHeader={"Complaints"}
+                      eventKey={"0"}
+                      listItems={patientInfo.complaints}
+                      isExpanded={isComplaintsExpanded}
+                      iconToDisplay={
+                        <FontAwesomeIcon
+                          icon={faQuestionCircle}
+                          className="headerIcon"
+                          size="lg"
+                        />
+                      }
+                    />
+                  </Accordion>
+                )}
+
+                {selectedMenuItemId === 3 && (
+                  <HistoryIllness
+                    illnessDescription={patientInfo.illnessDescription}
+                    abnormalPhysicalTests={patientInfo.abnormalPhysicalTests}
+                    gender={patientInfo.gender}
                     iconToDisplay={
                       <FontAwesomeIcon
-                        icon={faFastForward}
-                        className={"headerIcon"}
+                        icon={faHistory}
+                        className="headerIcon"
                         size="lg"
                       />
                     }
-                    wellnessOptions={patientInfo.wellnessOptions}
-                    calculatorType={"Pulmonory Embolism"}
                   />
+                )}
+                {selectedMenuItemId === 4 && (
+                  <Accordion
+                    defaultActiveKey={"0"}
+                    className="shadow rounded progressNotesCard"
+                    alwaysOpen={isMedicationExpanded}
+                    onClick={() =>
+                      setIsMedicationExpanded(!isMedicationExpanded)
+                    }
+                  >
+                    <AccordionItemList
+                      itemsHeader={"Medication"}
+                      eventKey={"0"}
+                      listItems={patientInfo.medication}
+                      isExpanded={isMedicationExpanded}
+                      iconToDisplay={
+                        <FontAwesomeIcon
+                          icon={faPills}
+                          className="headerIcon"
+                          size="lg"
+                        />
+                      }
+                    />
+                  </Accordion>
+                )}
+
+                {selectedMenuItemId === 5 && (
+                  <Accordion
+                    defaultActiveKey={"0"}
+                    className="shadow rounded progressNotesCard"
+                    alwaysOpen={isPastHealthIssuesExpanded}
+                    onClick={() =>
+                      setIsPastHealthIssuesExpanded(!isPastHealthIssuesExpanded)
+                    }
+                  >
+                    <AccordionItemList
+                      itemsHeader={"Past Health Issues"}
+                      eventKey={"0"}
+                      listItems={patientInfo.pastHealthIssues}
+                      isExpanded={isPastHealthIssuesExpanded}
+                      iconToDisplay={
+                        <FontAwesomeIcon
+                          icon={faBookMedical}
+                          className="headerIcon"
+                          size="lg"
+                        />
+                      }
+                    />
+                  </Accordion>
+                )}
+
+                {selectedMenuItemId === 6 && (
+                  <Accordion
+                    defaultActiveKey={"0"}
+                    className="shadow rounded progressNotesCard"
+                    alwaysOpen={isVitalsExpanded}
+                    onClick={() => setIsVitalsExpanded(!isVitalsExpanded)}
+                  >
+                    <AccordionItemList
+                      itemsHeader={"Vitals"}
+                      eventKey={"0"}
+                      listItems={patientInfo.physicalExam}
+                      isExpanded={isVitalsExpanded}
+                      iconToDisplay={
+                        <FontAwesomeIcon
+                          icon={faHeartbeat}
+                          className="headerIcon"
+                          size="lg"
+                        />
+                      }
+                    />
+                  </Accordion>
                 )}
               </Col>
 
               <Col xs={12} md={6}>
-                <HistoryIllness
-                  illnessDescription={patientInfo.illnessDescription}
-                  abnormalPhysicalTests={patientInfo.abnormalPhysicalTests}
-                  gender={patientInfo.gender}
+                <RecomendedNextSteps
+                  itemsHeader={"Recomended Next Steps"}
                   iconToDisplay={
                     <FontAwesomeIcon
-                      icon={faHistory}
-                      className="headerIcon"
+                      icon={faFastForward}
+                      className={"headerIcon"}
                       size="lg"
                     />
                   }
+                  wellnessOptions={wellnessOptions}
+                  calculatorType={"Pulmonory Embolism"}
                 />
               </Col>
             </Row>

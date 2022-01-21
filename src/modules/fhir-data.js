@@ -12,6 +12,10 @@ const ADD_EXAMPLE_DATA = "ADD_EXAMPLE_DATA";
 
 const ADD_PATIENT_INFO = "ADD_PATIENT_INFO";
 
+const ADD_WELLNESS_OPTIONS = "ADD_WELLNESS_OPTIONS";
+
+const UPDATE_WELLNESS_OPTIONS = "UPDATE_WELLNESS_OPTIONS";
+
 /***** Reducers *****/
 const defaultFhirDataState = {
   byResource: {
@@ -79,14 +83,18 @@ export function fhirDataReducer(state = defaultFhirDataState, action) {
           hdl: {
             need: "HDL within the last six months",
             title: "HDL Observation",
-            phi: "38 mg/dL measured on " + moment().subtract(2, "months").format("YYYY-MM-DD"),
+            phi:
+              "38 mg/dL measured on " +
+              moment().subtract(2, "months").format("YYYY-MM-DD"),
             deidentified: "38 mg/dL",
             hidden: true,
           },
           radiation: {
             need: "Past chest radiation?",
             title: "Radiation",
-            phi: "Chest radiation on " + moment().subtract(9, "years").format("YYYY-MM-DD"),
+            phi:
+              "Chest radiation on " +
+              moment().subtract(9, "years").format("YYYY-MM-DD"),
             deidentified: "No",
             hidden: true,
           },
@@ -128,9 +136,13 @@ export function fhirDataReducer(state = defaultFhirDataState, action) {
       };
 
     case FHIR_GET_DATA_SUCCEEDED:
-      let allResourcesLoaded = !Object.keys(state.byResource).some((resourceType) => {
-        return resourceType === action.resourceType ? false : state.byResource[resourceType].status !== "loaded";
-      });
+      let allResourcesLoaded = !Object.keys(state.byResource).some(
+        (resourceType) => {
+          return resourceType === action.resourceType
+            ? false
+            : state.byResource[resourceType].status !== "loaded";
+        }
+      );
       return {
         ...state,
         allResourcesLoaded: allResourcesLoaded,
@@ -180,13 +192,26 @@ export function fhirDataReducer(state = defaultFhirDataState, action) {
         illnessDescription: action.illnessDescription,
         abnormalPhysicalTests: action.abnormalPhysicalTests,
         assessmentPlan: action.assessmentPlan,
-        wellnessOptions: action.wellnessOptions,
       };
       return {
         ...state,
         patientInfo,
       };
 
+    case ADD_WELLNESS_OPTIONS:
+      let welllnessOptions = {
+        signsOfDVT: action.signsOfDVT,
+        isPEDiagnosis: action.isPEDiagnosis,
+        isHeartRateAbove100: action.isHeartRateAbove100,
+        isSurgeryin4Weeks: action.isSurgeryin4Weeks,
+        isPEOrDVTDiagnosed: action.isPEOrDVTDiagnosed,
+        hemotypsis: action.hemotypsis,
+        maligancyOrpalliative: action.maligancyOrpalliative,
+      };
+      return {
+        ...state,
+        welllnessOptions,
+      };
     case TOGGLE_EXAMPLE_VISIBILITY:
       return {
         ...state,
@@ -254,8 +279,7 @@ export const addPatientInfo = (
   pastPhysicalTestsOrdered,
   illnessDescription,
   abnormalPhysicalTests,
-  assessmentPlan,
-  wellnessOptions
+  assessmentPlan
 ) => ({
   type: ADD_PATIENT_INFO,
   id,
@@ -279,7 +303,25 @@ export const addPatientInfo = (
   illnessDescription,
   abnormalPhysicalTests,
   assessmentPlan,
-  wellnessOptions,
+});
+
+export const addWellnessOptions = (
+  signsOfDVT,
+  isPEDiagnosis,
+  isHeartRateAbove100,
+  isSurgeryin4Weeks,
+  isPEOrDVTDiagnosed,
+  hemotypsis,
+  maligancyOrpalliative
+) => ({
+  type: ADD_WELLNESS_OPTIONS,
+  signsOfDVT,
+  isPEDiagnosis,
+  isHeartRateAbove100,
+  isSurgeryin4Weeks,
+  isPEOrDVTDiagnosed,
+  hemotypsis,
+  maligancyOrpalliative,
 });
 
 export const getFHIRData = (resourceType) => (dispatch, getState) => {
@@ -319,14 +361,24 @@ export const getFHIRData = (resourceType) => (dispatch, getState) => {
 
         let wellnessOptions = {
           signsOfDVT: true,
-          isPEDiagnosis: true,
+          isPEDiagnosis: undefined,
           isHeartRateAbove100: true,
           isSurgeryin4Weeks: false,
           isPEOrDVTDiagnosed: true,
           hemotypsis: false,
           maligancyOrpalliative: false,
         };
-
+        dispatch(
+          addWellnessOptions(
+            wellnessOptions.signsOfDVT,
+            wellnessOptions.isPEDiagnosis,
+            wellnessOptions.isHeartRateAbove100,
+            wellnessOptions.isSurgeryin4Weeks,
+            wellnessOptions.isPEOrDVTDiagnosed,
+            wellnessOptions.hemotypsis,
+            wellnessOptions.maligancyOrpalliative
+          )
+        );
         dispatch(
           addPatientInfo(
             patientId,
@@ -349,8 +401,7 @@ export const getFHIRData = (resourceType) => (dispatch, getState) => {
             pastPhysicalTestsOrdered,
             illnessDescription,
             abnormalPhysicalTests,
-            assessmentPlan,
-            wellnessOptions
+            assessmentPlan
           )
         );
         dispatch(getFHIRDataSucceeded(resourceType, response));

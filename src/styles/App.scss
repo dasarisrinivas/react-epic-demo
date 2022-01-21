@@ -8,7 +8,7 @@ $fontFamily: "Roboto", sans-serif;
 $linkFontWeight: 500;
 $buttonFontWeight: 500;
 $activeLinkFontWeight: 600;
-$progressCardHeight: 55vh;
+$progressCardHeight: 45vh;
 
 .App {
   position: relative;
@@ -220,7 +220,7 @@ li.data.list-group-item{
 .scrollable {
   overflow-y: auto;
   scroll-behavior: smooth;
-  min-height: 50vh;
+  min-height: 45vh;
   max-height: $progressCardHeight;
 }
 
@@ -238,8 +238,15 @@ div.progressNotesRow.row {
 div.cardDescriptionBody.card-body {
   font-family: $fontFamily;
   padding: 0.5rem 0.5rem;
-  min-height: 55vh;
-  max-height: 65vh;
+  min-height: 50vh;
+  max-height: 45vh;
+}
+
+div.historyOfIllnessCard.card-body {
+  font-family: $fontFamily;
+  padding: 0.5rem 0.5rem;
+  min-height: 45vh;
+  max-height: 45vh;
 }
 
 .illnessDescriptionContent {
@@ -379,7 +386,7 @@ div.list-group-item{
   width: 100%;
 }
 
-.toggleButtonActive, .toggleButtonInactive{
+.toggleButtonActive, .toggleButtonInactive, .toggleButtonNotSelected{
   width: 50%;
 }
 
@@ -391,6 +398,11 @@ label.toggleButtonActive.btn.btn-primary{
 label.toggleButtonInactive.btn.btn-primary{
   background-color: $backgroundColor;
   border-color: $borderColor;
+}
+label.toggleButtonNotSelected.btn.btn-primary{
+    color: #dc3545;
+    border-color: #dc3545;
+    background-color: white;
 }
 
 button.btn.btn-link{
@@ -406,7 +418,7 @@ button.btn.btn-link{
 }
 
 .highRiskWellness{
-  color: rgb(172, 42, 42);
+  color: #dc3545;
 }
 
 .modalContentHeader {
@@ -450,4 +462,15 @@ button.btn.btn-link{
     margin-inline-end: 0px;
     color: #595959;
     background-color: #d7d7d7;
+}
+
+div.alert.alert-danger{
+  width: 15em;
+  margin-bottom: auto;
+  padding: 0.5em;
+  height: 2.5em;
+}
+
+.highRiskWellness, .moderateRiskWellness, lowRiskWellness{
+  margin:0px 2px;
 }

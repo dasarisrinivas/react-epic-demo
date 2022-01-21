@@ -13,11 +13,27 @@ const PEWellScoreFlowChart = ({
   wellnessOptions,
   wellnessScoreClass,
   wellnessLevel,
-  zoomLevel
+  zoomLevel,
 }) => {
   const [disableSaveButton, setDisableSaveButton] = useState(true);
   const [isWellnessCalculatorModalOpen, setIsWellnessCalculatorModalOpen] =
     useState(false);
+  const [elementNodes, setElementNodes] = useState([]);
+
+ useEffect(() => {
+    const {
+      lowRisklementNodes,
+      moderateRiskElementNodes,
+      highRiskElementNodes,
+    } = buildPERecomendationFlowDiagram(setDisableSaveButton);
+    if (wellnessScore < 2) {
+      setElementNodes(lowRisklementNodes);
+    } else if (wellnessScore >= 2 && wellnessScore < 6) {
+      setElementNodes(moderateRiskElementNodes);
+    } else if (wellnessScore >= 6) {
+      setElementNodes(highRiskElementNodes);
+    }
+  }, [wellnessScore, setDisableSaveButton]);
 
   return (
     <div className="wellnessModal">
@@ -32,7 +48,10 @@ const PEWellScoreFlowChart = ({
             <Row>
               <Col sm={12}>
                 <p className="modalContentHeader">
-                  WELL's Score is <span className={wellnessScoreClass}>{wellnessScore}</span> ( <span className={wellnessScoreClass}>{wellnessLevel}</span>  Risk for PE)
+                  WELL's Score is
+                  <span className={wellnessScoreClass}>{wellnessScore}</span> (
+                  <span className={wellnessScoreClass}>{wellnessLevel}</span>
+                  Risk for PE)
                 </p>
               </Col>
             </Row>
@@ -70,18 +89,19 @@ const PEWellScoreFlowChart = ({
                 <div className="flowChart">
                   <FlowDiagram
                     className="mx-0 my-0"
-                    elementNodes={
-                      buildPERecomendationFlowDiagram(setDisableSaveButton)
-                        .elementNodes
-                    }
+                    elementNodes={elementNodes}
                     zoomLevel={zoomLevel}
                   />
                 </div>
               </Col>
             </Row>
             <Row>
-            <div className="mx-5 my-2">
-              <small> * Consider VIQ Scan if CTA Chest contraindicated due to abnormal kidney function or allergy to dye. </small>
+              <div className="mx-5 my-2">
+                <small>
+                  {" "}
+                  * Consider VIQ Scan if CTA Chest contraindicated due to
+                  abnormal kidney function or allergy to dye.{" "}
+                </small>
               </div>
             </Row>
             <Row>
@@ -96,12 +116,12 @@ const PEWellScoreFlowChart = ({
                     Add to Order
                   </Button>
                   <Button
-                      className="customButton"
-                      size="md"
-                      onClick={() => setOpen(false)}
-                    >
-                      Close
-                    </Button>
+                    className="customButton"
+                    size="md"
+                    onClick={() => setOpen(false)}
+                  >
+                    Close
+                  </Button>
                 </div>
               </Col>
             </Row>

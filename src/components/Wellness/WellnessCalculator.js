@@ -102,7 +102,7 @@ const WellnessCalculator = ({
               <FontAwesomeIcon
                 icon={faCalculator}
                 className="headerIcon mx-2"
-                size="md"
+                size="1x"
               />{" "}
             </div>
           }
@@ -113,14 +113,14 @@ const WellnessCalculator = ({
               <Button
               className = {isWhenToUseExpanded?"customWellnessButton":"customWellnessButtonHover"}
                 variant="outline-dark"
-                size="md"
+                size="1x"
                 onClick={() => toggleExpand(!isWhenToUseExpanded, false, false)}
               >
                 <span>When to Use</span>
                 <FontAwesomeIcon
                   icon={isWhenToUseExpanded ? faMinusCircle : faPlusCircle}
                   className="headerIcon mx-2"
-                  size="md"
+                  size="1x"
                 />
               </Button>
               <Button
@@ -133,7 +133,7 @@ const WellnessCalculator = ({
                 <FontAwesomeIcon
                   icon={isPitfallsExpanded ? faMinusCircle : faPlusCircle}
                   className="headerIcon mx-2"
-                  size="md"
+                  size="1x"
                 />
               </Button>
               <Button
@@ -146,7 +146,7 @@ const WellnessCalculator = ({
                 <FontAwesomeIcon
                   icon={isWhyUseExpanded ? faMinusCircle : faPlusCircle}
                   className="headerIcon mx-2"
-                  size="md"
+                  size="1x"
                 />
               </Button>
             </ButtonGroup>

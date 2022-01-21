@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   ListGroup,
   ToggleButtonGroup,
   ToggleButton,
   Row,
   Col,
-  Container,
+  Container
 } from "react-bootstrap";
 const QuestionListItem = ({
   questionDescription,
@@ -15,29 +15,50 @@ const QuestionListItem = ({
   id1,
   id2,
 }) => {
+  const [buttonNoClass, setButtonNoClass] = useState("");
+  const [buttonYesClass, setButtonYesClass] = useState("");
+
+  useEffect(() => {
+    if (value === undefined) {
+      setButtonYesClass("toggleButtonNotSelected");
+      setButtonNoClass("toggleButtonNotSelected");
+    } else if (value) {
+      setButtonYesClass("toggleButtonActive");
+      setButtonNoClass("toggleButtonInactive");
+    } else {
+      setButtonYesClass("toggleButtonInactive");
+      setButtonNoClass("toggleButtonActive");
+    }
+  }, [value]);
+
   return (
     <ListGroup.Item className="questionListItem">
       <Container fluid>
         <Row>
-          <Col xs={6} md={8}>
-            <label className="questionLabel">{questionDescription}</label>
+          <Col xs={6} md={9}>
+            <div className="d-flex justify-content-between">
+              <label className="questionLabel">{questionDescription}</label>
+              { value === undefined && <div className="alert alert-danger"> Please choose <strong>YES/NO</strong></div>}
+            </div>
           </Col>
-          <Col xs={6} md={4}>
-            <ToggleButtonGroup
-              type="radio"
-              name={id1}
-              value={value}
-              defaultValue={value}
-              className="questionButtonGroup"
-              onChange={() => setValue(!value)}
-            >
-              <ToggleButton id={id1} value={false} className={ !value ? "toggleButtonActive": "toggleButtonInactive"}>
-                No 0
-              </ToggleButton>
-              <ToggleButton id={id2} value={true} className={ value ? "toggleButtonActive": "toggleButtonInactive"}>
-                Yes +{yesLabel}
-              </ToggleButton>
-            </ToggleButtonGroup>
+          <Col xs={6} md={3}>
+          
+              <ToggleButtonGroup
+                type="radio"
+                name={id1}
+                value={value}
+                defaultValue={value}
+                className="questionButtonGroup"
+                onChange={() =>  setValue(!value)}
+              >
+                <ToggleButton id={id1} value={false} className={buttonNoClass}>
+                  No 0
+                </ToggleButton>
+                <ToggleButton id={id2} value={true} className={buttonYesClass}>
+                  Yes +{yesLabel}
+                </ToggleButton>
+              </ToggleButtonGroup>
+            
           </Col>
         </Row>
       </Container>
