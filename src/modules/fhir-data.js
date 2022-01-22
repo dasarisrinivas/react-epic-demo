@@ -430,6 +430,18 @@ export const getFHIRData = (resourceType) => (dispatch, getState) => {
         console.log(err);
         dispatch(getFHIRDataFailed(resourceType));
       });
+  } else if (resourceType === "observation") {
+    client
+      .read({ type: "Observation", id: patientId })
+      .then((response) => {
+        console.log(JSON.stringify(response.data));
+        dispatch(getFHIRDataSucceeded(resourceType, response));
+      })
+    .catch((err) => {
+        console.log("Error!");
+        console.log(err);
+        dispatch(getFHIRDataFailed(resourceType));
+      });
   } else {
     alert("Unexpected resource type requested '" + resourceType + "'.");
     return dispatch(getFHIRDataFailed(resourceType));

@@ -5,7 +5,7 @@ export const DragIconWrapper = styled.div`
 `;
 
 export const ListContainer = styled.div`
-  font-family: "Roboto", sans-serif;
+  font-family: "apercu", sans-serif;
   margin: 2rem auto;
   max-width: 30rem;
   border-radius: 0.2rem;
@@ -13,7 +13,8 @@ export const ListContainer = styled.div`
 `;
 export const ListItem = styled.div`
   color: white;
-  font-size:1rem;
+  font-size:1.1rem;
+  font-weight: 200;
   padding: 1.2rem 1rem;
   border-bottom: 1px solid #dddddd;
    &:last-child {

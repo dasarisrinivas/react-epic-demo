@@ -26,12 +26,11 @@ const RecomendedNextSteps = ({
           <Button
             variant="link"
             className="zoom"
-            size="md"
+            size="xl"
             onClick={() => setIsWellnessChartModalOpen(true)}
           >
             <span className={wellnessScoreClass}>
-              {" "}
-              Wells' Flow chart - {wellnessLevel} Risk Level{" "}
+              Wells' Flow Chart - {wellnessLevel} Risk Level
             </span>
           </Button>
           <PEWellScoreFlowChart
@@ -45,11 +44,11 @@ const RecomendedNextSteps = ({
             wellnessLevel={wellnessLevel}
             zoomLevel={1.2}
           />
-          <Button variant="link" className="zoom" size="md">
-            Check BP in both arms
+          <Button variant="link" className="zoom" size="xl">
+            Check BP in Both Arms
           </Button>{" "}
           <br />
-          <Button variant="link" className="zoom" size="md">
+          <Button variant="link" className="zoom" size="xl">
             Cardiac Risk Score
           </Button>
         </Card.Body>

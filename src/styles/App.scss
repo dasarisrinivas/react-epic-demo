@@ -4,7 +4,7 @@ $backgroundColor: rgb(100, 178, 192) !important;
 $cardsackgroundColor: #20414d !important;
 $navLinksGap: 1em;
 $textFontWeight: 350;
-$fontFamily: "Roboto", sans-serif;
+$fontFamily: "apercu", sans-serif;
 $linkFontWeight: 500;
 $buttonFontWeight: 500;
 $activeLinkFontWeight: 600;
@@ -13,7 +13,7 @@ $progressCardHeight: 45vh;
 .App {
   position: relative;
   min-height: 100vh;
-  font-size: 1rem;
+  font-size: 1em;
   font-family: $fontFamily;
 }
 
@@ -342,9 +342,7 @@ label.toggleButtonInactive.btn.btn-primary{
   border-color: $borderColor;
 }
 
-button.btn.btn-link{
-  color: $primaryColor;
-}
+
 
 .accordion-button:not(.collapsed), .accordion-button.collapsed {
   background-color: $primaryColor !important;
@@ -405,8 +403,12 @@ label.toggleButtonNotSelected.btn.btn-primary{
     background-color: white;
 }
 
+
 button.btn.btn-link{
   color: $primaryColor;
+  font-size: 1.2em;
+  font-weight: 300;
+  margin-bottom: 0.5em;
 }
 
 .lowRiskWellness{

@@ -60,9 +60,9 @@ const ProfileInfo = () => {
                     <Row>
                       <Col>
                         <section className="blocked-content">
-                          Marital Status :<span className="data">{patientInfo.maritalStatus}</span><br />
+                          <strong>Marital Status :</strong><span className="data">{patientInfo.maritalStatus}</span><br />
    
-                          Phone Number :<span className="data">{patientInfo.phoneNumber}</span>
+                           <strong>Phone Number : </strong><span className="data">{patientInfo.phoneNumber}</span>
                         </section>
                       </Col>
                     </Row>
@@ -73,7 +73,8 @@ const ProfileInfo = () => {
                 <div className="card bg-light borderRight">
                   <div className="card-body text-lg-left px-0">
                     <Row>
-                      <Col>
+                      <Col className="d-flex">
+                        <div> <strong> Address:</strong></div>
                         <address className="blocked-content data">
                           {patientInfo.addressLine1}<br/>
                           {addressLine2 && (<><span>{addressLine2}</span><br/></>)}
@@ -88,9 +89,7 @@ const ProfileInfo = () => {
               <Col xs={12} lg={4}>
                 <div className="card bg-light">
                   <div className="card-body text-lg-left px-0">
-                    <Row>
-                      <h5>Insurance/other Information will be displayed here</h5>
-                    </Row>
+                    
                   </div>
                 </div>
               </Col>

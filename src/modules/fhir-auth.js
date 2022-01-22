@@ -199,7 +199,7 @@ export const getAccessToken = uri => (dispatch, getState) => {
     dispatch(setIssuer(oauth.iss));
     dispatch(accessTokenReceived(response));
     dispatch(getFHIRData("patient"));
-    //dispatch(getFHIRData("observation"));
+    dispatch(getFHIRData("observation"));
     //setTimeout(() => {
     //  dispatch(getFHIRData("conditions"));
    // }, 100);
